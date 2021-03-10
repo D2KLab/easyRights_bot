@@ -29,7 +29,7 @@ PROCEDURES = {
 }
 
 MESSAGES = {
-    'help': 'Hi! This bot helps a migrant by providing comprehensive, quick and easy information to access certain services! It is part of easyRights solution (https://www.easyrights.eu) which includes:\n - An Artificial Intelligence based tool capable of processing documents and generating simple instrictions.\n- A tool for creating language courses using specific and common terms of a service.\n- A tool to train the pronunciation of the language you are learning.\n\n Please, use the command /start to start the process!',
+    'help': "Hi! This bot helps a migrant by providing comprehensive, quick and easy information to access certain services! It is part of easyRights solution (https://www.easyrights.eu):\n - Are you looking for help because you can't figure out how to access a specific service? Use the command /pathway!\n- Do you need some introductive course to start speaking the language in the country you arrived in? Use the command /capeesh.\n- Have you learned the basics of the language but want to practice pronunciation? Use the command /calst.\n\n",
     'lang_selection': 'Please, select a language:',
     'pilot_selection': 'Thanks for your choice. Here is a list of municipalities where we can help you, please choose one:',
     'service_selection': 'Perfect! For which of the services available in this municipality do you need help?'

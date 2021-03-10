@@ -25,8 +25,14 @@ user = UserInfo()
 
 ######## MESSAGE HANDLERS ########
 
-@bot.message_handler(commands=['start'])
-def start_process(message):
+@bot.message_handler(commands=['help'])
+def help_message(message):
+    msg = MESSAGES['help']
+
+    bot.send_message(chat_id=message.chat.id, text=msg)
+
+@bot.message_handler(commands=['pathway'])
+def pathway(message):
     markup = types.InlineKeyboardMarkup()
 
     for language in LANGUAGES.keys():
@@ -34,9 +40,15 @@ def start_process(message):
 
     bot.send_message(chat_id=message.chat.id, text=MESSAGES['lang_selection'], reply_markup=markup, parse_mode='HTML')
 
-@bot.message_handler(commands=['help'])
-def help_message(message):
-    msg = MESSAGES['help']
+@bot.message_handler(commands=['capeesh'])
+def language_course(message):
+    msg = 'Hi! Capeesh is an application that allows you to learn the basics of a foreign language quickly and intuitively!\n\n Use the following link to access the application: https://www.capeesh.com'
+
+    bot.send_message(chat_id=message.chat.id, text=msg)
+
+@bot.message_handler(commands=['calst'])
+def pronunciation_exercise(message):
+    msg = 'Hi! CALST is a platform designed to practice pronunciation in a foreign language, with exercises specifically designed based on the combination of your native language and the one you need to practice.\n\n You can access the tool using the following link https://www.ntnu.edu/isl/calst'
 
     bot.send_message(chat_id=message.chat.id, text=msg)
 
