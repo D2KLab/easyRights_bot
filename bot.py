@@ -13,7 +13,7 @@ bot = telebot.TeleBot(TOKEN, parse_mode=None)
 translator = Translator()
 
 logger = telebot.logger
-telebot.logger.setLevel(logging.INFO)
+telebot.logger.setLevel(logging.DEBUG)
 
 class UserInfo:
     def __init__(self):
@@ -93,13 +93,31 @@ def call_service_api(query):
         message = message + '*'+step_trs+'*' + '\n'
         for block in pathway[step]['labels']:
             if not block.endswith('-'):
-                if block.startswith(PROCEDURES[user.selected_language]):
-                    message = re.sub(step_trs, step_trs + ' - ' + re.sub(PROCEDURES[user.selected_language]+':', '', block), message)
-                else:
-                    message = message + block + '\n'
+            #    if block.startswith(PROCEDURES[user.selected_language]):
+            #        message = re.sub(step_trs, step_trs + ' - ' + re.sub(PROCEDURES[user.selected_language]+':', '', block), message)
+            #    else:
+                message = message + block + '\n'
 
+    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=message)
 
-    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=message, parse_mode='Markdown')
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text=translator.translate('Yes', src='en', dest=user.selected_language).text + ' \U0001F44D', callback_data='Useful'))
+    markup.add(types.InlineKeyboardButton(text=translator.translate('No', src='en', dest=user.selected_language).text + ' \U0001F44E', callback_data='Not Useful'))
+    bot.send_message(chat_id=query.from_user.id, text=translator.translate(MESSAGES['rating'], src='en', dest=user.selected_language).text, reply_markup=markup, parse_mode='HTML')
+
+@bot.callback_query_handler(lambda query: "Useful" in query.data)
+def store_rating(query):
+    rating_file = open('./ratings.csv', 'a')
+
+    string_to_store = user.selected_pilot + ',' + user.selected_service + ','
+    if query.data == 'Useful':
+        string_to_store = string_to_store + str(True) + '\n'
+    else:
+        string_to_store = string_to_store + str(False) + '\n'
+
+    rating_file.write(string_to_store)
+    rating_file.close()
+    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=translator.translate(MESSAGES['rating_submission'], src='en', dest=user.selected_language).text)
 
 ######## POLLING ########
 
