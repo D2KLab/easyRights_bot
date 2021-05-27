@@ -1,9 +1,9 @@
-TOKEN = "API_TOKEN"
+TOKEN = "1714627253:AAF-hpOs_qC2P4ji3hBK14Q4UUVh4E7SWSQ"
 
 LANGUAGES = {
     'Italian \U0001F1EE\U0001F1F9': 'it',
-    'English \U0001F1EC\U0001F1E7': 'en', 
-    'Spanish \U0001F1EA\U0001F1F8': 'es', 
+    'English \U0001F1EC\U0001F1E7': 'en',
+    'Spanish \U0001F1EA\U0001F1F8': 'es',
     'Greek \U0001F1EC\U0001F1F7': 'el'
 }
 
@@ -33,6 +33,7 @@ MESSAGES = {
     'lang_selection': 'Please, select a language:',
     'pilot_selection': 'Thanks for your choice. Here is a list of municipalities where we can help you, please choose one:',
     'service_selection': 'Perfect! For which of the services available in this municipality do you need help?',
+    'capeesh' : 'Would you like to practice with a language course about this service?',
     'rating': 'Do you think the information provided were useful?',
     'rating_submission': 'Thanks for your help!'
 }
