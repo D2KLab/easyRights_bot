@@ -123,7 +123,7 @@ def add_email(query):
 
     email = query.text
 
-    api_key = '874a8ce4fb964ae7af797849a64db9bf'
+    api_key = ''
     api_key_get_headers = {
         "X-API-KEY": api_key
     }
@@ -135,24 +135,28 @@ def add_email(query):
     }
     response = requests.post(add_user_url, headers=api_key_get_headers, json=user_data)
     if response.status_code == 200:
-        pass
-    text ="""
-You have been invited by EasyRights to a specially tailored language course about %s in the Capeesh app. 
+        text = """
+        You have been invited by EasyRights to a specially tailored language course about %s in the Capeesh app. 
 
-The Capeesh app contains language lessons, quizzes and challenges made just for you!
+        The Capeesh app contains language lessons, quizzes and challenges made just for you!
 
-EasyRights is looking forward having you onboard with Capeesh, and we have created a simple four-step guide to make it as easy as possible for you to get started. 
-How to get started now:
+        EasyRights is looking forward having you onboard with Capeesh, and we have created a simple four-step guide to make it as easy as possible for you to get started. 
+        How to get started now:
 
-1	Download the capeesh app from the Apple App Store or Google Play Store. If it does not appear when you search for it, please contact support@capeesh.com for further assistance.
-2	Open the app, select your native language and click continue
-3	Then register your account by entering the email %s and clicking continue
-4	Finally, choose your own password and click Create user
-                          """%(user.selected_service, email)
+        1	Download the capeesh app from the Apple App Store or Google Play Store. If it does not appear when you search for it, please contact support@capeesh.com for further assistance.
+        2	Open the app, select your native language and click continue
+        3	Then register your account by entering the email %s and clicking continue
+        4	Finally, choose your own password and click Create user
+                                  """ % (user.selected_service, email)
 
-    bot.send_message(chat_id=query.from_user.id,
-                     text=text
-                     )
+        bot.send_message(chat_id=query.from_user.id,
+                         text=text
+                         )
+    else:
+        bot.send_message(chat_id=query.from_user.id,
+                         text='ERROR'+response.reason
+                         )
+
 
     #Do you think the information was useful?
     # markup = types.InlineKeyboardMarkup()
