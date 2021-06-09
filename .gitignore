@@ -1,3 +1,5 @@
 __pycache__/
 env/
 telegram_bot_log.out
+ratings.csv
+message_translation.json
