@@ -39,14 +39,10 @@ def help_message(message):
 
 @bot.message_handler(commands=['pathway'])
 def pathway(message):
+    user.capeesh_command = False
     language_selection(message)
 
 @bot.message_handler(commands=['capeesh'])
-## OLD FUNCTION
-#def language_course(message):
-#    msg = 'Hi! Capeesh is an application that allows you to learn the basics of a foreign language quickly and intuitively!\n\n Use the following link to access the application: https://www.capeesh.com'
-
-#    bot.send_message(chat_id=message.chat.id, text=translator.translate(msg, src='en', dest=user.selected_language).text)
 def capeesh(message):
     user.capeesh_command = True
 
@@ -197,6 +193,7 @@ def language_selection(message):
     bot.send_message(chat_id=message.chat.id, text=text, reply_markup=markup, parse_mode='HTML')
 
 def pilot_selection(message):
+    print(user.selected_language)
     text = MESSAGES['pilot_selection']
 
     markup = types.InlineKeyboardMarkup()
