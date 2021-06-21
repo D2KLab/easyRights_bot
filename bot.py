@@ -7,11 +7,12 @@ import re
 from datetime import datetime
 from geopy.geocoders import Nominatim
 
-from config import TOKEN, LANGUAGES, PILOTS, SERVICES, PROCEDURES, MESSAGES, NATIONS
+from config import LANGUAGES, PILOTS, SERVICES, PROCEDURES, MESSAGES, NATIONS
+from api_keys import TELEGRAM_API_TOKEN, CAPEESH_API_TOKEN
 from telebot import types
 from googletrans import Translator
 
-bot = telebot.TeleBot(TOKEN, parse_mode=None)
+bot = telebot.TeleBot(TELEGRAM_API_TOKEN, parse_mode=None)
 
 translator = Translator()
 
@@ -20,9 +21,11 @@ telebot.logger.setLevel(logging.INFO)
 
 class UserInfo:
     def __init__(self):
-        self.selected_language = 'en'
+        self.selected_language = ''
         self.selected_pilot = ''
         self.selected_service = ''
+
+        self.capeesh_command = False
 
 user = UserInfo()
 
@@ -36,18 +39,18 @@ def help_message(message):
 
 @bot.message_handler(commands=['pathway'])
 def pathway(message):
-    markup = types.InlineKeyboardMarkup()
-
-    for language in LANGUAGES.keys():
-        markup.add(types.InlineKeyboardButton(text=language, callback_data=language))
-
-    bot.send_message(chat_id=message.chat.id, text=MESSAGES['lang_selection'], reply_markup=markup, parse_mode='HTML')
+    language_selection(message)
 
 @bot.message_handler(commands=['capeesh'])
-def language_course(message):
-    msg = 'Hi! Capeesh is an application that allows you to learn the basics of a foreign language quickly and intuitively!\n\n Use the following link to access the application: https://www.capeesh.com'
+## OLD FUNCTION
+#def language_course(message):
+#    msg = 'Hi! Capeesh is an application that allows you to learn the basics of a foreign language quickly and intuitively!\n\n Use the following link to access the application: https://www.capeesh.com'
 
-    bot.send_message(chat_id=message.chat.id, text=translator.translate(msg, src='en', dest=user.selected_language).text)
+#    bot.send_message(chat_id=message.chat.id, text=translator.translate(msg, src='en', dest=user.selected_language).text)
+def capeesh(message):
+    user.capeesh_command = True
+
+    language_selection(message)
 
 @bot.message_handler(commands=['calst'])
 def pronunciation_exercise(message):
@@ -55,7 +58,6 @@ def pronunciation_exercise(message):
 
     bot.send_message(chat_id=message.chat.id, text=translator.translate(msg, src='en', dest=user.selected_language).text)
 
-#TODO: HAS THIS TO BE THE STARTING POINT OF THE USER EXPERIENCE?
 @bot.message_handler(commands=['start'])
 def geolocalisation(message):
     # Create a button that ask the user for the location 
@@ -85,29 +87,24 @@ def location_handler(message):
 ######## QUERY HANDLERS ########
 @bot.callback_query_handler(lambda query: query.data in LANGUAGES.keys())
 def language_handler(query):
-    msg = MESSAGES['pilot_selection']
     user.selected_language = LANGUAGES[query.data]
-
-    markup = types.InlineKeyboardMarkup()
-    for pilot in PILOTS.keys():
-        markup.add(types.InlineKeyboardButton(text=pilot, callback_data=pilot))
-
-    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=translator.translate(msg, src='en', dest=user.selected_language).text, reply_markup=markup, parse_mode='HTML')
+    
+    pilot_selection(query)
 
 @bot.callback_query_handler(lambda query: query.data in PILOTS.keys())
 def pilot_handler(query):
-    msg = MESSAGES['service_selection']
     user.selected_pilot = PILOTS[query.data]
 
-    markup = types.InlineKeyboardMarkup()
-    for service in SERVICES[user.selected_pilot]:
-       markup.add(types.InlineKeyboardButton(text=service, callback_data=service)) 
-
-    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=translator.translate(msg, src='en', dest=user.selected_language).text, reply_markup=markup, parse_mode='HTML')
+    service_selection(query)
 
 @bot.callback_query_handler(lambda query: query.data in SERVICES[user.selected_pilot])
 def call_service_api(query):
     user.selected_service = query.data
+
+    if user.capeesh_command:
+        user.capeesh_command = False
+        language_course(query)
+        return
 
     files = {'data': (None, '{"pilot":"' + user.selected_pilot +'","service":"' + user.selected_service + '"}'),}
 
@@ -153,16 +150,74 @@ def store_rating(query):
     rating_file.close()
     bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=translator.translate(MESSAGES['rating_submission'], src='en', dest=user.selected_language).text)
 
+@bot.callback_query_handler(lambda query: "capeesh" in query.data)
+def sign_up_to_capeesh(query):
+    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=translator.translate('Please, enter your email address:', src='en', dest=user.selected_language).text)
+
+@bot.message_handler(func=lambda query: '@' in query.text)
+def add_email(query):
+
+    email = query.text
+
+    api_key = CAPEESH_API_TOKEN
+    api_key_get_headers = {
+        "X-API-KEY": api_key
+    }
+
+    add_user_url = 'https://api.capeesh.com/api/easyrights/user/add/'
+    user_data = {
+        "Email": email,
+        "Tag": user.selected_service.lower()
+    }
+    response = requests.post(add_user_url, headers=api_key_get_headers, json=user_data)
+
+    if response.status_code == 200:
+        pass
+
+    text ="You have been invited by EasyRights to a specially tailored language course about <b> %s </b> in the Capeesh app.\nThe Capeesh app contains language lessons, quizzes and challenges made just for you!\nEasyRights is looking forward having you onboard with Capeesh, and we have created a simple four-step guide to make it as easy as possible for you to get started.\nHow to get started now:\n\n 1)	Download the capeesh app from the Apple App Store or Google Play Store. If it does not appear when you search for it, please contact support@capeesh.com for further assistance. \n\n 2)	Open the app, select your native language and click continue \n\n 3)	Then register your account by entering the email %s and clicking continue \n\n 4)	Finally, choose your own password and click Create user." % (user.selected_service, email)
+
+    bot.send_message(chat_id=query.from_user.id, text=text, parse_mode='html')
 ######## OTHER FUNCTIONS ########
 def auto_localisation(chat_id):
-    msg = MESSAGES['service_selection']
+    text = MESSAGES['service_selection']
 
     markup = types.InlineKeyboardMarkup()
     for service in SERVICES[user.selected_pilot]:
        markup.add(types.InlineKeyboardButton(text=service, callback_data=service)) 
 
-    bot.send_message(chat_id=chat_id, text=translator.translate(msg, src='en', dest=user.selected_language).text, reply_markup=markup, parse_mode='HTML')
+    bot.send_message(chat_id=chat_id, text=translator.translate(text, src='en', dest=user.selected_language).text, reply_markup=markup, parse_mode='HTML')
 
+def language_selection(message):
+    text = MESSAGES['lang_selection']
+
+    markup = types.InlineKeyboardMarkup()
+    for language in LANGUAGES.keys():
+        markup.add(types.InlineKeyboardButton(text=language, callback_data=language))
+
+    bot.send_message(chat_id=message.chat.id, text=text, reply_markup=markup, parse_mode='HTML')
+
+def pilot_selection(message):
+    text = MESSAGES['pilot_selection']
+
+    markup = types.InlineKeyboardMarkup()
+    for pilot in PILOTS.keys():
+        markup.add(types.InlineKeyboardButton(text=pilot, callback_data=pilot))
+
+    bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=translator.translate(text, src='en', dest=user.selected_language).text, reply_markup=markup, parse_mode='HTML')
+
+def service_selection(message):
+    text = MESSAGES['service_selection']
+
+    markup = types.InlineKeyboardMarkup()
+    for service in SERVICES[user.selected_pilot]:
+       markup.add(types.InlineKeyboardButton(text=service, callback_data=service)) 
+
+    bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=translator.translate(text, src='en', dest=user.selected_language).text, reply_markup=markup, parse_mode='HTML')
+
+def language_course(message):
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text=translator.translate('Yes', src='en', dest=user.selected_language).text + ' \U0001F44D', callback_data='capeesh'))
+    markup.add(types.InlineKeyboardButton(text=translator.translate('No', src='en', dest=user.selected_language).text + ' \U0001F44E', callback_data='Not capeesh'))
+    bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=translator.translate(MESSAGES['capeesh'], src='en', dest=user.selected_language).text, reply_markup=markup, parse_mode='HTML')
 ######## POLLING ########
-
 bot.polling()

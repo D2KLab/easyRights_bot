@@ -1,5 +1,3 @@
-TOKEN = "API_TOKEN"
-
 NATIONS = {
     'Italy': ['it', 'palermo'],
     'United Kingdom': ['en', 'birmingham'], 
@@ -41,5 +39,6 @@ MESSAGES = {
     'pilot_selection': 'Thanks for your choice. Here is a list of municipalities where we can help you, please choose one:',
     'service_selection': 'Perfect! For which of the services available in this municipality do you need help?',
     'rating': 'Do you think the information provided were useful?',
-    'rating_submission': 'Thanks for your help!'
+    'rating_submission': 'Thanks for your help!',
+    'capeesh': 'Would you like to practice with a language course about this service?'
 }
