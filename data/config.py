@@ -1,15 +1,17 @@
-NATIONS = {
-    'Italy': ['it', 'palermo'],
-    'United Kingdom': ['en', 'birmingham'], 
-    'Spain': ['es', 'malaga'], 
-    'Greece': ['el', 'larissa']
-}
+MUNICIPALITIES = [
+    'Turin',
+    'Birmingham', 
+    'Malaga', 
+    'Larissa'
+]
 
 LANGUAGES = {
-    'Italian \U0001F1EE\U0001F1F9': 'it',
-    'English \U0001F1EC\U0001F1E7': 'en', 
-    'Spanish \U0001F1EA\U0001F1F8': 'es', 
-    'Greek \U0001F1EC\U0001F1F7': 'el'
+    '\U0001F1EE\U0001F1F9': 'it',
+    '\U0001F1EC\U0001F1E7': 'en', 
+    '\U0001F1EA\U0001F1F8': 'es', 
+    '\U0001F1EC\U0001F1F7': 'el',
+    '\U0001F1EB\U0001F1F7': 'fr',
+    '\U0001F1E6\U0001F1EA': 'ar'
 }
 
 PILOTS = {
@@ -40,5 +42,6 @@ MESSAGES = {
     'service_selection': 'Perfect! For which of the services available in this municipality do you need help?',
     'rating': 'Do you think the information provided were useful?',
     'rating_submission': 'Thanks for your help!',
-    'capeesh': 'Would you like to practice with a language course about this service?'
+    'capeesh': 'Would you like to practice with a language course about this service?',
+    'error': 'The service is temporarily unavailable. Please, try again later.'
 }

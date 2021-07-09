@@ -1,6 +1,9 @@
 __pycache__/
 env/
 telegram_bot_log.out
-ratings.csv
-message_translation.json
-api_keys.py
+
+data/__pycache__/
+data/api_keys.py
+data/pathways.json
+data/message_translation.json
+data/ratings.csv
