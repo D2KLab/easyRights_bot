@@ -34,6 +34,7 @@ class UserInfo:
         self.selected_service = ''
 
         self.capeesh_command = False
+        self.action = 'localisation'
 
 user = UserInfo()
 
@@ -47,12 +48,12 @@ def help_message(message):
 
 @bot.message_handler(commands=['pathway'])
 def pathway(message):
-    user.capeesh_command = False
+    user.action = 'pathway'
     language_selection(message)
 
 @bot.message_handler(commands=['capeesh'])
 def capeesh(message):
-    user.capeesh_command = True
+    user.action = 'capeesh'
 
     if not user.selected_pilot:
         language_selection(message)
@@ -66,19 +67,13 @@ def pronunciation_exercise(message):
     bot.send_message(chat_id=message.chat.id, text=translate(user.selected_language, msg))
 
 @bot.message_handler(commands=['start'])
-def geolocalisation(message):
-    # Create a button that ask the user for the location 
-    keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-    button_geo = types.KeyboardButton(text="Share your location!", request_location=True)
-    keyboard.add(button_geo)
-
-    # WARNING: IS THIS WORKING ALSO ON TELEGRAM WEB AND DESKTOP????
-    bot.send_message(message.chat.id, "In order to better select services, please, let us know where you are", reply_markup=keyboard)
+def start(message):
+    language_selection(message)
 
 @bot.message_handler(content_types=['location'])
 def location_handler(message):
     # Instatiate and retrieve the address based on the position sent by the user
-    geolocator = Nominatim(user_agent="easyRigths")
+    geolocator = Nominatim(user_agent="easyRights")
     position = str(message.location.latitude) + ', ' + str(message.location.longitude)
     location = geolocator.reverse(position, language='en')
     
@@ -87,8 +82,6 @@ def location_handler(message):
 
     if municipality in MUNICIPALITIES:
         user.selected_pilot = municipality
-        while language_selection(message) == False:
-            pass
         auto_localisation(message.chat.id)
     else:
         # The country is not supported
@@ -97,12 +90,18 @@ def location_handler(message):
 ######## QUERY HANDLERS ########
 @bot.callback_query_handler(lambda query: query.data in LANGUAGES.keys())
 def language_handler(query):
+    print(query)
     user.selected_language = LANGUAGES[query.data]
     
-    if not user.selected_pilot:
+    if user.action == 'capeesh':
+        user.capeesh_command = True
         pilot_selection(query)
-    else: 
-        return True
+    elif user.action == 'pathway':
+        user.capeesh_command = False
+        pilot_selection(query)
+    elif user.action == 'localisation':
+        user.capeesh_command = False
+        geolocalisation(query)
 
 @bot.callback_query_handler(lambda query: query.data in PILOTS.keys())
 def pilot_handler(query):
@@ -278,6 +277,17 @@ def pathway_retrieve(text):
         json.dump(pathways, pathways_file, indent=4)
         pathways_file.close()
         return new_pathway_translation        
+
+def geolocalisation(message):
+    # Create a button that ask the user for the location 
+    keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+    button_geo = types.KeyboardButton(text=translate(user.selected_language, "Share your location!"), request_location=True)
+    keyboard.add(button_geo)
+
+    user.action = 'localisation'
+
+    # WARNING: IS THIS WORKING ALSO ON TELEGRAM WEB AND DESKTOP????
+    bot.send_message(chat_id=message.from_user.id, text=translate(user.selected_language, "In order to better select services, please, let us know where you are"), reply_markup=keyboard, parse_mode='HTML')
 
 ######## POLLING ########
 #bot.infinity_polling()
