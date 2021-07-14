@@ -7,3 +7,4 @@ data/api_keys.py
 data/pathways.json
 data/message_translation.json
 data/ratings.csv
+data/users.json

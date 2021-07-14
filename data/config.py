@@ -1,5 +1,5 @@
 MUNICIPALITIES = [
-    'Turin',
+    'Palermo',
     'Birmingham', 
     'Malaga', 
     'Larissa'
