@@ -55,7 +55,7 @@ def pathway(message):
 @bot.message_handler(commands=['capeesh'])
 def capeesh(message):
     user = retrieve_user(message.from_user.id)
-    user['action'] = 'capeesh'
+    users[str(message.from_user.id)]['action'] = 'capeesh'
 
     if not user['selected_pilot']:
         language_selection(message)
@@ -64,6 +64,7 @@ def capeesh(message):
 
 @bot.message_handler(commands=['calst'])
 def pronunciation_exercise(message):
+    users[str(message.from_user.id)]['action'] = 'calst'
     msg = 'Hi! CALST is a platform designed to practice pronunciation in a foreign language, with exercises specifically designed based on the combination of your native language and the one you need to practice.\n\n You can access the tool using the following link: https://www.ntnu.edu/isl/calst'
     user = retrieve_user(message.from_user.id)
 
@@ -101,13 +102,10 @@ def language_handler(query, loc=False):
     user['selected_language'] = LANGUAGES[query.data]
     
     if user['action'] == 'capeesh':
-        user['capeesh_command'] = True
         pilot_selection(query)
     elif user['action'] == 'pathway':
-        user['capeesh_command'] = False
         pilot_selection(query)
     elif user['action'] == 'localisation':
-        user['capeesh_command'] = False
         geolocalisation(query)
 
 @bot.callback_query_handler(lambda query: query.data in PILOTS.keys())
@@ -122,8 +120,7 @@ def call_service_api(query):
     user = retrieve_user(query.from_user.id)
     user['selected_service'] = query.data
 
-    if user['capeesh_command']:
-        user['capeesh_command'] = False
+    if user['action'] == 'capeesh':
         language_course(query)
         return
 
@@ -165,11 +162,15 @@ def store_rating(query):
     handle_user = query.from_user.username
     date_msg = datetime.fromtimestamp(query.message.date)
 
-    string_to_store = handle_user + ',' + str(date_msg) + ',' + user['selected_pilot'] + ',' + user['selected_service'] + ',' + user['selected_language'] + ','
-    if query.data == 'Useful':
-        string_to_store = string_to_store + str(True) + '\n'
-    else:
-        string_to_store = string_to_store + str(False) + '\n'
+    try:
+        string_to_store = handle_user + ',' + str(date_msg) + ',' + user['selected_pilot'] + ',' + user['selected_service'] + ',' + user['selected_language'] + ','
+        if query.data == 'Useful':
+            string_to_store = string_to_store + str(True) + '\n'
+        else:
+            string_to_store = string_to_store + str(False) + '\n'
+    except Exception as e:
+        print(e)
+        string_to_store = ''
 
     rating_file.write(string_to_store)
     rating_file.close()
@@ -268,6 +269,7 @@ def translate(language, text):
     try:
         return translations[language][text]
     except KeyError:
+        print('The translation or the language is not present. Adding...')
         if language not in translations.keys():
             translations[language] = {}
         new_translation = translator.translate(text, src='en', dest=language).text
@@ -312,24 +314,19 @@ def geolocalisation(message):
 
 def retrieve_user(user_id):
     try:
+        user_id = str(user_id)
         return users[user_id]
     except KeyError:
         users[user_id] = {
             "selected_language" : 'en',
             "selected_pilot" : '',
             "selected_service" : '',
-            "capeesh_command" : False,
             "action" : 'localisation'
         }
         users_file = open('./data/users.json', 'w')
         json.dump(users, users_file, indent=4)
         users_file.close()
         return users[user_id]
-
-def update_users():
-    users_file = open('./data/users.json', 'r')
-    json.dump(users, users_file)
-    users_file.close()
 
 ######## POLLING ########
 #bot.infinity_polling()
