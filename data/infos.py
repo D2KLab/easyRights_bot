@@ -43,5 +43,7 @@ MESSAGES = {
     'rating': 'Do you think the information provided were useful?',
     'rating_submission': 'Thanks for your help!',
     'capeesh': 'Would you like to practice with a language course about this service?',
-    'error': 'The service is temporarily unavailable. Please, try again later.'
+    'error': 'The service is temporarily unavailable. Please, try again later.',
+    'calst': 'Hi! CALST is a platform designed to practice pronunciation in a foreign language, with exercises specifically designed based on the combination of your native language and the one you need to practice.\n\n You can access the tool using the following link: https://www.ntnu.edu/isl/calst',
+    'default': 'Hi there! This bot uses several commands. They are available by clicking on /help or by writing "help" in the chat.'
 }
