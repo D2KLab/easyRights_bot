@@ -33,7 +33,7 @@ telebot.logger.setLevel(logging.INFO)
 
 ######## MESSAGE HANDLERS ########
 
-@bot.message_handler(commands=['help'])
+@bot.message_handler(regexp=r"^(\/?)(?i)help$")
 def help_message(message):
     msg = MESSAGES['help']
     
@@ -310,7 +310,7 @@ def geolocalisation(message):
     user['action'] = 'localisation'
 
     # WARNING: IS THIS WORKING ALSO ON TELEGRAM WEB AND DESKTOP????
-    bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], "In order to better select services, please, let us know where you are"), reply_markup=keyboard, parse_mode='HTML')
+    bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], "In order to better select services, please, let us know where you are by clicking on the 'Share your Location!' button below!"), reply_markup=keyboard, parse_mode='HTML')
 
 def retrieve_user(user_id):
     try:
