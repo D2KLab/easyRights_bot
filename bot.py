@@ -97,7 +97,8 @@ def location_handler(message):
 
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def default(message):
-    bot.send_message(chat_id=message.chat.id, text='default message')    
+    user = retrieve_user(message.from_user.id)
+    bot.send_message(chat_id=message.chat.id, text=translate(user['selected_language'], MESSAGES['help']))    
 
 ######## QUERY HANDLERS ########
 @bot.callback_query_handler(lambda query: query.data in LANGUAGES.keys())
@@ -186,35 +187,6 @@ def sign_up_to_capeesh(query):
     user = retrieve_user(query.from_user.id)
     msg = bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=translate(user['selected_language'], 'Please, enter your email address:'))
     bot.register_next_step_handler(msg, add_email)
-
-def add_email(message):
-    user = retrieve_user(message.from_user.id)    
-    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-    email = message.text
-
-    if not re.match(regex, email):
-        msg = bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], 'Please, insert a VALID email address.'), parse_mode='html')
-        bot.register_next_step_handler(msg, add_email)
-        return
-
-    api_key = CAPEESH_API_TOKEN
-    api_key_get_headers = {
-        "X-API-KEY": api_key
-    }
-
-    add_user_url = 'https://api.capeesh.com/api/easyrights/user/add/'
-    user_data = {
-        "Email": email,
-        "Tag": user['selected_service'].lower()
-    }
-    response = requests.post(add_user_url, headers=api_key_get_headers, json=user_data)
-
-    if response.status_code == 200:
-        pass
-
-    text ="You have been invited by easyRights to a specially tailored language course about <b>%s</b> in the Capeesh app.\nThe Capeesh app contains language lessons, quizzes and challenges made just for you!\neasyRights is looking forward having you onboard with Capeesh, and we have created a simple four-step guide to make it as easy as possible for you to get started.\nHow to get started now:\n\n 1)	Download the capeesh app from the Apple App Store or Google Play Store. If it does not appear when you search for it, please contact support@capeesh.com for further assistance. \n\n 2)	Open the app, select your native language and click continue \n\n 3)	Then register your account by entering the email %s and clicking continue \n\n 4)	Finally, choose your own password and click Create user." % (user['selected_service'], email)
-
-    bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], text), parse_mode='html')
 
 ######## OTHER FUNCTIONS ########
 def auto_localisation(message):
@@ -316,6 +288,35 @@ def geolocalisation(message):
 
     # WARNING: IS THIS WORKING ALSO ON TELEGRAM WEB AND DESKTOP????
     bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], "In order to better select services, please, let us know where you are by clicking on the 'Share your Location!' button below!"), reply_markup=keyboard, parse_mode='HTML')
+
+def add_email(message):
+    user = retrieve_user(message.from_user.id)    
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    email = message.text
+
+    if not re.match(regex, email):
+        msg = bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], 'Please, insert a VALID email address.'), parse_mode='html')
+        bot.register_next_step_handler(msg, add_email)
+        return
+
+    api_key = CAPEESH_API_TOKEN
+    api_key_get_headers = {
+        "X-API-KEY": api_key
+    }
+
+    add_user_url = 'https://api.capeesh.com/api/easyrights/user/add/'
+    user_data = {
+        "Email": email,
+        "Tag": user['selected_service'].lower()
+    }
+    response = requests.post(add_user_url, headers=api_key_get_headers, json=user_data)
+
+    if response.status_code == 200:
+        pass
+
+    text ="You have been invited by easyRights to a specially tailored language course about <b>%s</b> in the Capeesh app.\nThe Capeesh app contains language lessons, quizzes and challenges made just for you!\neasyRights is looking forward having you onboard with Capeesh, and we have created a simple four-step guide to make it as easy as possible for you to get started.\nHow to get started now:\n\n 1)	Download the capeesh app from the Apple App Store or Google Play Store. If it does not appear when you search for it, please contact support@capeesh.com for further assistance. \n\n 2)	Open the app, select your native language and click continue \n\n 3)	Then register your account by entering the email %s and clicking continue \n\n 4)	Finally, choose your own password and click Create user." % (user['selected_service'], email)
+
+    bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], text), parse_mode='html')
 
 def retrieve_user(user_id):
     try:
