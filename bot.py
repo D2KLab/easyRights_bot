@@ -93,7 +93,11 @@ def location_handler(message):
         auto_localisation(message)
     else:
         # The country is not supported
-        pathway(message)    
+        pathway(message)
+
+@bot.message_handler(func=lambda message: True, content_types=['text'])
+def default(message):
+    bot.send_message(chat_id=message.chat.id, text='default message')    
 
 ######## QUERY HANDLERS ########
 @bot.callback_query_handler(lambda query: query.data in LANGUAGES.keys())
@@ -134,6 +138,7 @@ def call_service_api(query):
         pathway = json.loads(response.text)
 
         message = ''
+        # insert src and dest language, if they are the same, dont do google transalte call 
         for step in pathway:
             step_trs = translator.translate(step, src='en', dest=user['selected_language']).text
             message = message + '*'+step_trs+'*' + '\n'
