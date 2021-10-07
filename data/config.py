@@ -36,12 +36,22 @@ PROCEDURES = {
 }
 
 MESSAGES = {
-    'help': "Hi! This bot helps migrants by providing comprehensive, quick and easy information to access certain services! It is part of easyRights solution (https://www.easyrights.eu):\n - Are you looking for help because you can't figure out how to access a specific service? Use the command /pathway!\n- Do you need some introductive course to start speaking the language in the country you arrived in? Use the command /capeesh.\n- Have you learned the basics of the language but want to practice pronunciation? Use the command /calst.\n\n",
+    'help': "Hi! This bot helps migrants by providing comprehensive, quick and easy information to access certain services! It is part of easyRights solution (https://www.easyrights.eu):\n - Are you looking for help because you can't figure out how to access a specific service?\n- Do you need some introductive course to start speaking the language in the country you arrived in?\n- Have you learned the basics of the language but want to practice pronunciation?\n\n",
     'lang_selection': 'Please, select a language:',
     'pilot_selection': 'Thanks for your choice. Here is a list of municipalities where we can help you, please choose one:',
     'service_selection': 'Perfect! For which of the services available in this municipality do you need help?',
     'rating': 'Do you think the information provided were useful?',
     'rating_submission': 'Thanks for your help!',
     'capeesh': 'Would you like to practice with a language course about this service?',
-    'error': 'The service is temporarily unavailable. Please, try again later.'
+    'error': 'The service is temporarily unavailable. Please, try again later.',
+    'location': 'In order to better select services, please, let us know where you are by clicking on the "Share your Location!" button below!',
+    'restart': 'Thanks for using the bot! If you want, you can reuse one of the following commands.',
+    'location_permission': 'Are you able or do you want to share your location?' 
+}
+
+COMMANDS = {
+    'pathway': 'Access simplified instructions',
+    'calst': 'Access pronunciation exercises',
+    'capeesh': 'Access language courses',
+    'help': 'Help'
 }
