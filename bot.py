@@ -31,7 +31,10 @@ users_file.close()
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
 
-######## MESSAGE HANDLERS ########
+##################################
+######## COMMAND HANDLERS ########
+##################################
+
 @bot.message_handler(commands=['pathway'])
 def pathway(message):
     user = retrieve_user(message.from_user.id)
@@ -92,7 +95,10 @@ def help(message):
     except Exception:
         bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], msg), reply_markup=markup, parse_mode='HTML')
 
+################################
 ######## QUERY HANDLERS ########
+################################
+
 @bot.callback_query_handler(lambda query: query.data in COMMANDS.keys())
 def command_handler(query):
     globals()[query.data](query)
@@ -200,7 +206,10 @@ def return_to_menu(query):
 def location(query):
     geolocalisation(query)
 
-######## OTHER FUNCTIONS ########
+###########################
+######## FUNCTIONS ########
+###########################
+
 def restart(message):
     msg = MESSAGES['restart']
     
@@ -366,5 +375,8 @@ def menu_creation(message, buttons, language='en', values=False):
 
     return markup
 
+#########################
 ######## POLLING ########
+#########################
+
 bot.polling()
