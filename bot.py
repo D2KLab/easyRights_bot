@@ -55,8 +55,8 @@ def calst(message):
     msg = 'Hi! CALST is a platform designed to practice pronunciation in a foreign language, with exercises specifically designed based on the combination of your native language and the one you need to practice.\n\n You can access the tool using the following link: https://www.ntnu.edu/isl/calst'
     user = retrieve_user(message.from_user.id)
 
-    bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], msg))
-    restart(message)
+    return_markup = restart(message)
+    bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=translate(user['selected_language'], msg), reply_markup=return_markup, parse_mode='HTML')
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -184,8 +184,8 @@ def store_rating(query):
 
     rating_file.write(string_to_store)
     rating_file.close()
-    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=translate(user['selected_language'], MESSAGES['rating_submission']))
-    restart(query)
+    return_markup = restart(query)
+    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=translate(user['selected_language'], MESSAGES['rating_submission']), reply_markup=return_markup)
 
 @bot.callback_query_handler(lambda query: "course" in query.data)
 def sign_up_to_capeesh(query):
@@ -198,9 +198,13 @@ def return_to_menu(query):
     user = retrieve_user(query.from_user.id)
     if user['action'] == 'capeesh':
         user['action'] = 'help'
-        restart(query)
+        help(query)
+    else:
+        pilot_selection(query)
 
-    pilot_selection(query)
+@bot.callback_query_handler(lambda query: "restart" in query.data)
+def restart_experience(query):
+    help(query)
 
 @bot.callback_query_handler(lambda query: "location" in query.data)
 def location(query):
@@ -211,13 +215,10 @@ def location(query):
 ###########################
 
 def restart(message):
-    msg = MESSAGES['restart']
-    
     user = retrieve_user(message.from_user.id)
+    markup = menu_creation(message, {'restart': 'Restart the experience.'}, user['selected_language'], values=True)
 
-    markup = menu_creation(message, COMMANDS, user['selected_language'], values=True)
-    
-    bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], msg), reply_markup=markup, parse_mode='HTML')
+    return markup
 
 def ask_for_position(message):
     user = retrieve_user(message.from_user.id)
@@ -346,8 +347,8 @@ def add_email(message):
 
     text ="You have been invited by easyRights to a specially tailored language course about <b>%s</b> in the Capeesh app.\nThe Capeesh app contains language lessons, quizzes and challenges made just for you!\neasyRights is looking forward having you onboard with Capeesh, and we have created a simple four-step guide to make it as easy as possible for you to get started.\nHow to get started now:\n\n 1)	Download the capeesh app from the Apple App Store or Google Play Store. If it does not appear when you search for it, please contact support@capeesh.com for further assistance. \n\n 2)	Open the app, select your native language and click continue \n\n 3)	Then register your account by entering the email %s and clicking continue \n\n 4)	Finally, choose your own password and click Create user." % (user['selected_service'], email)
 
-    bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], text), parse_mode='html')
-    restart(message)
+    return_markup = restart(message)
+    bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], text), reply_markup=return_markup, parse_mode='html')
 
 def retrieve_user(user_id):
     try:
