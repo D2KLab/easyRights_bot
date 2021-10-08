@@ -52,7 +52,7 @@ def capeesh(message):
 @bot.message_handler(commands=['calst'])
 def calst(message):
     users[str(message.from_user.id)]['action'] = 'calst'
-    msg = 'Hi! CALST is a platform designed to practice pronunciation in a foreign language, with exercises specifically designed based on the combination of your native language and the one you need to practice.\n\n You can access the tool using the following link: https://www.ntnu.edu/isl/calst'
+    msg = MESSAGES['calst']
     user = retrieve_user(message.from_user.id)
 
     return_markup = restart(message)
@@ -124,45 +124,6 @@ def pilot_handler(query):
 
     service_selection(query)
 
-@bot.callback_query_handler(lambda query: query.data in SERVICES[retrieve_user(query.from_user.id)['selected_pilot']])
-def call_service_api(query):
-    user = retrieve_user(query.from_user.id)
-    user['selected_service'] = query.data
-
-    if user['action'] == 'capeesh':
-        language_course(query)
-        return
-
-    files = {'data': (None, '{"pilot":"' + user['selected_pilot'] +'","service":"' + user['selected_service'] + '"}'),}
-
-    url = 'http://easyrights.linksfoundation.com/v0.3/generate'
-
-    try:
-        response = requests.post(url, files=files)
-
-        pathway = json.loads(response.text)
-
-        message = ''
-        # insert src and dest language, if they are the same, dont do google transalte call 
-        for step in pathway:
-            step_trs = translator.translate(step, src='en', dest=user['selected_language']).text
-            message = message + '<b>'+step_trs+'</b>' + '\n'
-            for block in pathway[step]['labels']:
-                if not block.endswith('-'):
-                #    if block.startswith(PROCEDURES[user['selected_language']]):
-                #        message = re.sub(step_trs, step_trs + ' - ' + re.sub(PROCEDURES[user['selected_language']]+':', '', block), message)
-                #    else:
-                    message = message + block + '\n'
-
-        bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=pathway_retrieve(message, query), parse_mode='HTML')
-
-        markup = types.InlineKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton(text=translate(user['selected_language'], 'Yes') + ' \U0001F44D', callback_data='Useful'))
-        markup.add(types.InlineKeyboardButton(text=translate(user['selected_language'], 'No') + ' \U0001F44E', callback_data='Not Useful'))
-        bot.send_message(chat_id=query.from_user.id, text=translate(user['selected_language'], MESSAGES['rating']), reply_markup=markup, parse_mode='HTML')
-    except KeyError as e:
-        bot.send_message(chat_id=query.from_user.id, text=translate(user['selected_language'], MESSAGES['error']))
-
 @bot.callback_query_handler(lambda query: "Useful" in query.data)
 def store_rating(query):
     user = retrieve_user(query.from_user.id)
@@ -209,6 +170,45 @@ def restart_experience(query):
 @bot.callback_query_handler(lambda query: "location" in query.data)
 def location(query):
     geolocalisation(query)
+
+@bot.callback_query_handler(lambda query: query.data in SERVICES[retrieve_user(query.from_user.id)['selected_pilot']])
+def call_service_api(query):
+    user = retrieve_user(query.from_user.id)
+    user['selected_service'] = query.data
+
+    if user['action'] == 'capeesh':
+        language_course(query)
+        return
+
+    files = {'data': (None, '{"pilot":"' + user['selected_pilot'] +'","service":"' + user['selected_service'] + '"}'),}
+
+    url = 'http://easyrights.linksfoundation.com/v0.3/generate'
+
+    try:
+        response = requests.post(url, files=files)
+
+        pathway = json.loads(response.text)
+
+        message = ''
+        # insert src and dest language, if they are the same, dont do google transalte call 
+        for step in pathway:
+            step_trs = translator.translate(step, src='en', dest=user['selected_language']).text
+            message = message + '<b>'+step_trs+'</b>' + '\n'
+            for block in pathway[step]['labels']:
+                if not block.endswith('-'):
+                #    if block.startswith(PROCEDURES[user['selected_language']]):
+                #        message = re.sub(step_trs, step_trs + ' - ' + re.sub(PROCEDURES[user['selected_language']]+':', '', block), message)
+                #    else:
+                    message = message + block + '\n'
+
+        bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=pathway_retrieve(message, query), parse_mode='HTML')
+
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton(text=translate(user['selected_language'], 'Yes') + ' \U0001F44D', callback_data='Useful'))
+        markup.add(types.InlineKeyboardButton(text=translate(user['selected_language'], 'No') + ' \U0001F44E', callback_data='Not Useful'))
+        bot.send_message(chat_id=query.from_user.id, text=translate(user['selected_language'], MESSAGES['rating']), reply_markup=markup, parse_mode='HTML')
+    except KeyError as e:
+        bot.send_message(chat_id=query.from_user.id, text=translate(user['selected_language'], MESSAGES['error']))
 
 ###########################
 ######## FUNCTIONS ########

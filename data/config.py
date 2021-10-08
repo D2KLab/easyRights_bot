@@ -46,7 +46,8 @@ MESSAGES = {
     'error': 'The service is temporarily unavailable. Please, try again later.',
     'location': 'In order to better select services, please, let us know where you are by clicking on the "Share your Location!" button below!',
     'restart': 'Thanks for using the bot! If you want, you can reuse one of the following commands.',
-    'location_permission': 'Are you able or do you want to share your location?' 
+    'location_permission': 'Are you able or do you want to share your location?',
+    'calst': 'Hi! CALST is a platform designed to practice pronunciation in a foreign language, with exercises specifically designed based on the combination of your native language and the one you need to practice.\n\n You can access the tool using the following link: https://www.ntnu.edu/isl/calst' 
 }
 
 COMMANDS = {
