@@ -51,7 +51,8 @@ def capeesh(message):
 
 @bot.message_handler(commands=['calst'])
 def calst(message):
-    users[str(message.from_user.id)]['action'] = 'calst'
+    user = retrieve_user(message.from_user.id)
+    user['action'] = 'calst'
     msg = MESSAGES['calst']
     user = retrieve_user(message.from_user.id)
 
@@ -89,7 +90,7 @@ def help(message):
     
     user = retrieve_user(message.from_user.id)
 
-    markup = menu_creation(message, COMMANDS, user['selected_language'], values=True)
+    markup = menu_creation(message=message, buttons=COMMANDS, language=user['selected_language'], values=True)
     try:
         bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=translate(user['selected_language'], msg), reply_markup=markup, parse_mode='HTML')
     except Exception:
@@ -180,35 +181,57 @@ def call_service_api(query):
         language_course(query)
         return
 
-    files = {'data': (None, '{"pilot":"' + user['selected_pilot'] +'","service":"' + user['selected_service'] + '"}'),}
+    pathway_text = pathway_retrieve(user['selected_pilot'], user['selected_service'], user['selected_language'])
 
-    url = 'http://easyrights.linksfoundation.com/v0.3/generate'
+    if not pathway_text:
+        files = {'data': (None, '{"pilot":"' + user['selected_pilot'] +'","service":"' + user['selected_service'] + '"}'),}
 
-    try:
-        response = requests.post(url, files=files)
+        url = 'http://easyrights.linksfoundation.com/v0.3/generate'
+        try:
+            response = requests.post(url, files=files)
 
-        pathway = json.loads(response.text)
+            pathway = json.loads(response.text)
 
-        message = ''
-        # insert src and dest language, if they are the same, dont do google transalte call 
-        for step in pathway:
-            step_trs = translator.translate(step, src='en', dest=user['selected_language']).text
-            message = message + '<b>'+step_trs+'</b>' + '\n'
-            for block in pathway[step]['labels']:
-                if not block.endswith('-'):
-                #    if block.startswith(PROCEDURES[user['selected_language']]):
-                #        message = re.sub(step_trs, step_trs + ' - ' + re.sub(PROCEDURES[user['selected_language']]+':', '', block), message)
-                #    else:
-                    message = message + block + '\n'
+            pathway_text = ''
+            block_message = ''
+    
+            for step in pathway:
+                step_trs = translate(user['selected_language'], step)
+                pathway_text = pathway_text + '<b>'+step_trs+'</b>' + '\n'
 
-        bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=pathway_retrieve(message, query), parse_mode='HTML')
+                for block in pathway[step]['labels']:
+                    if not block.endswith('-'):
+                        block_split = re.split(':|-', block)
+                        if '_' in block_split[1]:
+                            block_split[1] = re.sub('_', ' ', block_split[1])
 
-        markup = types.InlineKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton(text=translate(user['selected_language'], 'Yes') + ' \U0001F44D', callback_data='Useful'))
-        markup.add(types.InlineKeyboardButton(text=translate(user['selected_language'], 'No') + ' \U0001F44E', callback_data='Not Useful'))
-        bot.send_message(chat_id=query.from_user.id, text=translate(user['selected_language'], MESSAGES['rating']), reply_markup=markup, parse_mode='HTML')
-    except KeyError as e:
-        bot.send_message(chat_id=query.from_user.id, text=translate(user['selected_language'], MESSAGES['error']))
+                        block_message = translate(user['selected_language'], block_split[0].strip()) + ' - ' + translate(user['selected_language'], block_split[1].strip()) + ': ' + translate(user['selected_language'], ':'.join(block_split[2:]).strip()) +'\n'
+                
+                    pathway_text = pathway_text + block_message
+                    block_message = ''
+
+        except Exception as e:
+            print(e)
+            bot.send_message(chat_id=query.from_user.id, text=translate(user['selected_language'], MESSAGES['error']))
+
+        if user['selected_pilot'] not in pathways.keys():
+            pathways[user['selected_pilot']] = {}
+        if user['selected_service'] not in pathways[user['selected_pilot']].keys():
+            pathways[user['selected_pilot']][user['selected_service']] = {}
+        if user['selected_language'] not in pathways[user['selected_pilot']][user['selected_service']].keys():
+            pathways[user['selected_pilot']][user['selected_service']][user['selected_language']] = {}
+
+        pathways[user['selected_pilot']][user['selected_service']][user['selected_language']] = pathway_text
+        pathways_file = open('./data/pathways.json', 'w')
+        json.dump(pathways, pathways_file, indent=4)
+        pathways_file.close()
+        
+    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=pathway_text, parse_mode='HTML')
+
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text=translate(user['selected_language'], 'Yes') + ' \U0001F44D', callback_data='Useful'))
+    markup.add(types.InlineKeyboardButton(text=translate(user['selected_language'], 'No') + ' \U0001F44E', callback_data='Not Useful'))
+    bot.send_message(chat_id=query.from_user.id, text=translate(user['selected_language'], MESSAGES['rating']), reply_markup=markup, parse_mode='HTML')
 
 ###########################
 ######## FUNCTIONS ########
@@ -216,9 +239,15 @@ def call_service_api(query):
 
 def restart(message):
     user = retrieve_user(message.from_user.id)
-    markup = menu_creation(message, {'restart': 'Restart the experience.'}, user['selected_language'], values=True)
+    markup = menu_creation(message=message, buttons={'restart': 'Restart the experience'}, language=user['selected_language'], values=True)
 
     return markup
+
+def change_lang(message):
+    user = retrieve_user(message.from_user.id)
+    user['action'] = 'help'
+
+    language_selection(message)
 
 def ask_for_position(message):
     user = retrieve_user(message.from_user.id)
@@ -252,7 +281,7 @@ def geolocalisation(message):
 def language_selection(message):
     text = MESSAGES['lang_selection']
 
-    markup = menu_creation(message, LANGUAGES.keys())    
+    markup = menu_creation(message=message, buttons=LANGUAGES.keys())    
 
     bot.send_message(chat_id=message.from_user.id, text=text, reply_markup=markup, parse_mode='HTML')
 
@@ -260,7 +289,7 @@ def pilot_selection(message):
     text = MESSAGES['pilot_selection']
     user = retrieve_user(message.from_user.id)
 
-    markup = menu_creation(message, PILOTS.keys(), user['selected_language'])
+    markup = menu_creation(message=message, buttons=PILOTS.keys(), language=user['selected_language'])
 
     try:
         bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=translate(user['selected_language'], text), reply_markup=markup, parse_mode='HTML')
@@ -271,7 +300,7 @@ def service_selection(message):
     text = MESSAGES['service_selection']
     user = retrieve_user(message.from_user.id)
 
-    markup = menu_creation(message, SERVICES[user['selected_pilot']], user['selected_language'])
+    markup = menu_creation(message=message, buttons=SERVICES[user['selected_pilot']], language=user['selected_language'])
 
     try:
         bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=translate(user['selected_language'], text), reply_markup=markup, parse_mode='HTML')
@@ -292,7 +321,10 @@ def translate(language, text):
         print('The translation or the language is not present. Adding...')
         if language not in translations.keys():
             translations[language] = {}
-        new_translation = translator.translate(text, src='en', dest=language).text
+        src_lang = translator.detect(text).lang
+        if src_lang == language:
+            return text
+        new_translation = translator.translate(text, src=src_lang, dest=language).text
         translations[language][text] = new_translation
     
         translations_file = open('./data/message_translation.json', 'w')
@@ -300,25 +332,11 @@ def translate(language, text):
         translations_file.close()
         return new_translation
 
-def pathway_retrieve(text, message):
-    user = retrieve_user(message.from_user.id)
+def pathway_retrieve(pilot, service, language):
     try:
-        return pathways[user['selected_pilot']][user['selected_service']][user['selected_language']]
+        return pathways[pilot][service][language]
     except KeyError:
-        if user['selected_pilot'] not in pathways.keys():
-            pathways[user['selected_pilot']] = {}
-        if user['selected_service'] not in pathways[user['selected_pilot']].keys():
-            pathways[user['selected_pilot']][user['selected_service']] = {}
-        if user['selected_language'] not in pathways[user['selected_pilot']][user['selected_service']].keys():
-            pathways[user['selected_pilot']][user['selected_service']][user['selected_language']] = {}
-
-        new_pathway_translation = translator.translate(text, src=translator.detect(text).lang, dest=user['selected_language']).text
-        pathways[user['selected_pilot']][user['selected_service']][user['selected_language']] = new_pathway_translation
-
-        pathways_file = open('./data/pathways.json', 'w')
-        json.dump(pathways, pathways_file, indent=4)
-        pathways_file.close()
-        return new_pathway_translation        
+        return None
 
 def add_email(message):
     user = retrieve_user(message.from_user.id)    

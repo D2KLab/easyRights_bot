@@ -22,7 +22,7 @@ PILOTS = {
 }
 
 SERVICES = {
-    'palermo': ['Registrazione Anagrafe'],
+    'palermo': ['Registration at Registry Office'],
     'birmingham': ['Clean Air Zone'],
     'malaga': ['Asylum Request'],
     'larissa': ['Certification of Nationality'],
@@ -36,7 +36,7 @@ PROCEDURES = {
 }
 
 MESSAGES = {
-    'help': "Hi! This bot helps migrants by providing comprehensive, quick and easy information to access certain services! It is part of easyRights solution (https://www.easyrights.eu):\n - Are you looking for help because you can't figure out how to access a specific service?\n- Do you need some introductive course to start speaking the language in the country you arrived in?\n- Have you learned the basics of the language but want to practice pronunciation?\n\n",
+    'help': "Hi! This bot helps migrants by providing comprehensive, quick and easy information to access certain services! It is part of easyRights solution (https://www.easyrights.eu):\n - Are you looking for help because you can't figure out how to access a specific service?\n- Do you need some introductive courses to start speaking the language in the country you arrived in?\n- Have you learned the basics of the language but want to practice pronunciation?\n\n",
     'lang_selection': 'Please, select a language:',
     'pilot_selection': 'Thanks for your choice. Here is a list of municipalities where we can help you, please choose one:',
     'service_selection': 'Perfect! For which of the services available in this municipality do you need help?',
@@ -54,5 +54,6 @@ COMMANDS = {
     'pathway': 'Access simplified instructions',
     'calst': 'Access pronunciation exercises',
     'capeesh': 'Access language courses',
-    'help': 'Help'
+    'help': 'Help',
+    'change_lang': 'Change the language'
 }
