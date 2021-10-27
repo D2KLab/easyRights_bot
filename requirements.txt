@@ -17,3 +17,4 @@ rfc3986
 sniffio
 urllib3
 python-dotenv
+pyyaml>=3.10

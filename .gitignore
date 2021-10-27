@@ -9,3 +9,4 @@ data/ratings.csv
 data/users.json
 
 .env
+locale/
