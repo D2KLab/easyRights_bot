@@ -6,13 +6,14 @@ import re
 
 from datetime import datetime
 from geopy.geocoders import Nominatim
-
+from dotenv import dotenv_values
 from data.config import LANGUAGES, PILOTS, SERVICES, PROCEDURES, MESSAGES, MUNICIPALITIES, COMMANDS
-from data.api_keys import TELEGRAM_API_TOKEN, CAPEESH_API_TOKEN
 from telebot import types
 from googletrans import Translator
 
-bot = telebot.TeleBot(TELEGRAM_API_TOKEN, parse_mode=None)
+config = dotenv_values(".env")
+
+bot = telebot.TeleBot(config['TELEGRAM_API_TOKEN'], parse_mode=None)
 
 translator = Translator()
 
@@ -348,7 +349,7 @@ def add_email(message):
         bot.register_next_step_handler(msg, add_email)
         return
 
-    api_key = CAPEESH_API_TOKEN
+    api_key = config['CAPEESH_API_TOKEN']
     api_key_get_headers = {
         "X-API-KEY": api_key
     }
