@@ -4,15 +4,14 @@ import logging
 import json
 import re
 import os
+import i18n
 
 from datetime import datetime
 from geopy.geocoders import Nominatim
 from dotenv import dotenv_values
-from data.config import LANGUAGES, PILOTS, SERVICES, COMMANDS
+from data.static import LANGUAGES, PILOTS, SERVICES, COMMANDS
 from telebot import types
 from googletrans import Translator
-
-import i18n
 
 for folder in os.listdir('./locale/'):
     i18n.load_path.append('./locale/' + folder)
@@ -176,8 +175,14 @@ def location(query):
 
 @bot.callback_query_handler(lambda query: query.data in SERVICES[retrieve_user(query.from_user.id)['selected_pilot']])
 def call_service_api(query):
+    tmp_mapping = {
+        "registry_office": "Registration at Registry Office",
+        "caz": "Clean Air Zone",
+        "asylum_request": "Asylum Request",
+        "nationality": "Certification of Nationality"
+    }
     user = retrieve_user(query.from_user.id)
-    user['selected_service'] = query.data
+    user['selected_service'] = tmp_mapping[query.data]
 
     if user['action'] == 'capeesh':
         language_course(query)
@@ -271,7 +276,7 @@ def geolocalisation(message):
     user = retrieve_user(message.from_user.id)
     # Create a button that ask the user for the location 
     keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-    button_geo = types.KeyboardButton(text=translate(user['selected_language'], "Share your location!"), request_location=True)
+    button_geo = types.KeyboardButton(text=i18n.t('messages.share', locale=user['selected_language']), request_location=True)
     keyboard.add(button_geo)
 
     user['action'] = 'localisation'
@@ -299,7 +304,7 @@ def pilot_selection(message):
 def service_selection(message):
     user = retrieve_user(message.from_user.id)
 
-    markup = menu_creation(buttons=SERVICES[user['selected_pilot']], language=user['selected_language'])
+    markup = menu_creation(buttons=SERVICES[user['selected_pilot']], language=user['selected_language'], type='services.'+user['selected_pilot'])
 
     try:
         bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=i18n.t('messages.service_selection', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
@@ -383,10 +388,10 @@ def retrieve_user(user_id):
         users_file.close()
         return users[user_id]
 
-def menu_creation(buttons, language='en'):
+def menu_creation(buttons, language='en', type='commands'):
     markup = types.InlineKeyboardMarkup(row_width=1)
     for button in buttons:
-        action = 'commands.' + button
+        action = type + '.' + button
         markup.add(types.InlineKeyboardButton(text=i18n.t(action, locale=language), callback_data=button))
 
     return markup
