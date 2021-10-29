@@ -5,6 +5,7 @@ import json
 import re
 import os
 import i18n
+import yaml
 
 from datetime import datetime
 from geopy.geocoders import Nominatim
@@ -19,16 +20,6 @@ for folder in os.listdir('./locale/'):
 config = dotenv_values(".env")
 
 bot = telebot.TeleBot(config['TELEGRAM_API_TOKEN'], parse_mode=None)
-
-translator = Translator()
-
-translations_file = open('./data/message_translation.json', 'r')
-translations = json.loads(translations_file.read())
-translations_file.close()
-
-pathways_file = open('./data/pathways.json', 'r')
-pathways = json.loads(pathways_file.read())
-pathways_file.close()
 
 users_file = open('./data/users.json', 'r')
 users = json.loads(users_file.read())
@@ -188,9 +179,10 @@ def call_service_api(query):
         language_course(query)
         return
 
-    pathway_text = pathway_retrieve(user['selected_pilot'], user['selected_service'], user['selected_language'])
-
-    if not pathway_text:
+    translation_key = 'pathways.' + user['selected_pilot'] + '.' + query.data
+    pathway_text = i18n.t(translation_key, locale=user['selected_language'])
+    
+    if pathway_text == translation_key:
         files = {'data': (None, '{"pilot":"' + user['selected_pilot'] +'","service":"' + user['selected_service'] + '"}'),}
 
         url = 'http://easyrights.linksfoundation.com/v0.3/generate'
@@ -201,9 +193,11 @@ def call_service_api(query):
 
             pathway_text = ''
             block_message = ''
-    
+            language = user['selected_language']
+            translator = Translator()
+
             for step in pathway:
-                step_trs = translate(user['selected_language'], step)
+                step_trs = translator.translate(step, dest=language).text
                 pathway_text = pathway_text + '<b>'+step_trs+'</b>' + '\n'
 
                 for block in pathway[step]['labels']:
@@ -212,7 +206,7 @@ def call_service_api(query):
                         if '_' in block_split[1]:
                             block_split[1] = re.sub('_', ' ', block_split[1])
 
-                        block_message = translate(user['selected_language'], block_split[0].strip()) + ' - ' + translate(user['selected_language'], block_split[1].strip()) + ': ' + translate(user['selected_language'], ':'.join(block_split[2:]).strip()) +'\n'
+                        block_message = translator.translate(block_split[0].strip(), dest=language).text + ' - ' + translator.translate(block_split[1].strip(), dest=language).text + ': ' + translator.translate(':'.join(block_split[2:]).strip(), dest=language).text +'\n'
                 
                     pathway_text = pathway_text + block_message
                     block_message = ''
@@ -221,17 +215,13 @@ def call_service_api(query):
             print(e)
             bot.send_message(chat_id=query.from_user.id, text=i18n.t('messages.error', locale=user['selected_language']))
 
-        if user['selected_pilot'] not in pathways.keys():
-            pathways[user['selected_pilot']] = {}
-        if user['selected_service'] not in pathways[user['selected_pilot']].keys():
-            pathways[user['selected_pilot']][user['selected_service']] = {}
-        if user['selected_language'] not in pathways[user['selected_pilot']][user['selected_service']].keys():
-            pathways[user['selected_pilot']][user['selected_service']][user['selected_language']] = {}
-
-        pathways[user['selected_pilot']][user['selected_service']][user['selected_language']] = pathway_text
-        pathways_file = open('./data/pathways.json', 'w')
-        json.dump(pathways, pathways_file, indent=4)
-        pathways_file.close()
+        path = './locale/' + language + '/pathways.' + language + '.yml'
+        file_input = open(path, 'r')
+        pathways_dict = yaml.safe_load(file_input)
+        os.remove(path)
+        pathways_dict[language][user['selected_pilot']] = {}
+        pathways_dict[language][user['selected_pilot']].update({query.data: pathway_text})
+        yaml.safe_dump(pathways_dict, open(path, 'w'), encoding='utf-8', allow_unicode=True)
         
     bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=pathway_text, parse_mode='HTML')
 
@@ -318,30 +308,6 @@ def language_course(message):
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language']) + ' \U0001F44E', callback_data='nope'))
     bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=i18n.t('messages.capeesh', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
-def translate(language, text):
-    try:
-        return translations[language][text]
-    except KeyError:
-        print('The translation or the language is not present. Adding...')
-        if language not in translations.keys():
-            translations[language] = {}
-        src_lang = translator.detect(text).lang
-        if src_lang == language:
-            return text
-        new_translation = translator.translate(text, src=src_lang, dest=language).text
-        translations[language][text] = new_translation
-    
-        translations_file = open('./data/message_translation.json', 'w')
-        json.dump(translations, translations_file, indent=4)
-        translations_file.close()
-        return new_translation
-
-def pathway_retrieve(pilot, service, language):
-    try:
-        return pathways[pilot][service][language]
-    except KeyError:
-        return None
-
 def add_email(message):
     user = retrieve_user(message.from_user.id)    
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -367,10 +333,8 @@ def add_email(message):
     if response.status_code == 200:
         pass
 
-    text ="You have been invited by easyRights to a specially tailored language course about <b>%s</b> in the Capeesh app.\nThe Capeesh app contains language lessons, quizzes and challenges made just for you!\neasyRights is looking forward having you onboard with Capeesh, and we have created a simple four-step guide to make it as easy as possible for you to get started.\nHow to get started now:\n\n 1)	Download the capeesh app from the Apple App Store or Google Play Store. If it does not appear when you search for it, please contact support@capeesh.com for further assistance. \n\n 2)	Open the app, select your native language and click continue \n\n 3)	Then register your account by entering the email %s and clicking continue \n\n 4)	Finally, choose your own password and click Create user." % (user['selected_service'], email)
-
     return_markup = restart(message)
-    bot.send_message(chat_id=message.from_user.id, text=translate(user['selected_language'], text), reply_markup=return_markup, parse_mode='html')
+    bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.capeesh_course', locale=user['selected_language']), reply_markup=return_markup, parse_mode='html')
 
 def retrieve_user(user_id):
     try:
