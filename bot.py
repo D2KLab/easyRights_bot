@@ -78,6 +78,29 @@ def location_handler(message):
         # The country is not supported
         pilot_selection(message)
 
+"""still need to understand wether this could be a possible solution for pathway visualization
+@bot.message_handler(commands=['test'])
+def visualize_pathway(message):
+    pathway = {'Step 1': 'This is the text related to step 1',
+                'Step 2': 'This is the text related to step 2',
+                'Step 3': 'This is the text related to step 3',
+            }
+    markup = types.InlineKeyboardMarkup(row_width=1)
+    for step in pathway.keys():
+        markup.add(types.InlineKeyboardButton(text=step, callback_data=step))
+
+    bot.send_message(chat_id=message.from_user.id, text='test', reply_markup=markup, parse_mode='HTML')
+    rating_submission(message)
+
+@bot.callback_query_handler(lambda query: "Step" in query.data)
+def visualize_step(query):
+    pathway = {'Step 1': 'This is the text related to step 1',
+                'Step 2': 'This is the text related to step 2',
+                'Step 3': 'This is the text related to step 3',
+            }
+
+    bot.answer_callback_query(callback_query_id=query.id, show_alert=True, text=pathway[query.data])
+"""
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def help(message):
     user = retrieve_user(message.from_user.id)
@@ -225,10 +248,7 @@ def call_service_api(query):
         
     bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=pathway_text, parse_mode='HTML')
 
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language'])+' \U0001F44D', callback_data='Useful'))
-    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language'])+' \U0001F44E', callback_data='Not Useful'))
-    bot.send_message(chat_id=query.from_user.id, text=i18n.t('messages.rating', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
+    rating_submission(query)
 
 ###########################
 ######## FUNCTIONS ########
@@ -239,6 +259,14 @@ def restart(message):
     markup = menu_creation(buttons=['restart'], language=user['selected_language'])
 
     return markup
+
+def rating_submission(message):
+    user = retrieve_user(message.from_user.id)
+
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language'])+' \U0001F44D', callback_data='Useful'))
+    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language'])+' \U0001F44E', callback_data='Not Useful'))
+    bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.rating', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
 def change_lang(message):
     user = retrieve_user(message.from_user.id)
