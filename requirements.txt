@@ -17,3 +17,5 @@ rfc3986
 sniffio
 urllib3
 python-dotenv
+pyyaml>=3.10
+git+https://github.com/D2KLab/python-i18n.git@c56cdf02ff0233d0752d0a68ce2760dc307bf8e2#egg=python-i18n
