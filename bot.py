@@ -51,7 +51,8 @@ def calst(message):
     user['action'] = 'calst'
 
     return_markup = restart(message)
-    bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=i18n.t('messages.calst', locale=user['selected_language']), reply_markup=return_markup, parse_mode='HTML')
+
+    bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.calst', locale=user['selected_language']), reply_markup=return_markup, parse_mode='HTML')
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -105,11 +106,8 @@ def visualize_step(query):
 def help(message):
     user = retrieve_user(message.from_user.id)
 
-    markup = menu_creation(buttons=COMMANDS, language=user['selected_language'])
-    try:
-        bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=i18n.t('messages.help', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
-    except Exception:
-        bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.help', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
+    markup = menu_creation(buttons=COMMANDS, language=user['selected_language'], lang_selection=True)
+    bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.help', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
 ################################
 ######## QUERY HANDLERS ########
@@ -162,12 +160,12 @@ def store_rating(query):
     rating_file.write(string_to_store)
     rating_file.close()
     return_markup = restart(query)
-    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=i18n.t('messages.rating_submission', locale=user['selected_language']), reply_markup=return_markup)
+    bot.send_message(chat_id=query.from_user.id, text=i18n.t('messages.rating_submission', locale=user['selected_language']), reply_markup=return_markup)
 
 @bot.callback_query_handler(lambda query: "course" in query.data)
 def sign_up_to_capeesh(query):
     user = retrieve_user(query.from_user.id)
-    msg = bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=i18n.t('messages.capeesh_mail_insertion', locale=user['selected_language']))
+    msg = bot.send_message(chat_id=query.from_user.id, text=i18n.t('messages.capeesh_mail_insertion', locale=user['selected_language']))
     bot.register_next_step_handler(msg, add_email)
 
 @bot.callback_query_handler(lambda query: "nope" in query.data)
@@ -246,7 +244,7 @@ def call_service_api(query):
         pathways_dict[language][user['selected_pilot']].update({query.data: pathway_text})
         yaml.safe_dump(pathways_dict, open(path, 'w'), encoding='utf-8', allow_unicode=True)
         
-    bot.edit_message_text(chat_id=query.from_user.id, message_id=query.message.id, text=pathway_text, parse_mode='HTML')
+    bot.send_message(chat_id=query.from_user.id, text=pathway_text, parse_mode='HTML')
 
     rating_submission(query)
 
@@ -256,7 +254,7 @@ def call_service_api(query):
 
 def restart(message):
     user = retrieve_user(message.from_user.id)
-    markup = menu_creation(buttons=['restart'], language=user['selected_language'])
+    markup = menu_creation(buttons=[], language=user['selected_language'])
 
     return markup
 
@@ -279,7 +277,9 @@ def ask_for_position(message):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language'])+' \U0001F44D', callback_data='location'))
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language'])+' \U0001F44E', callback_data='nope'))
-    bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=i18n.t('messages.location_permission', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
+    markup.add(types.InlineKeyboardButton(text=i18n.t("commands.restart", locale=user['selected_language']), callback_data='restart'))
+
+    bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.location_permission', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
 def auto_localisation(message):
     user = retrieve_user(message.from_user.id)
@@ -305,7 +305,7 @@ def geolocalisation(message):
 def language_selection(message):
     user = retrieve_user(message.from_user.id)
 
-    markup = menu_creation(buttons=LANGUAGES)    
+    markup = menu_creation(buttons=LANGUAGES, lang_selection=True)    
 
     bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.lang_selection', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
@@ -314,27 +314,22 @@ def pilot_selection(message):
 
     markup = menu_creation(buttons=PILOTS, language=user['selected_language'])
 
-    try:
-        bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=i18n.t('messages.pilot_selection', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
-    except AttributeError:
-        bot.send_message(chat_id=message.chat.id, text=i18n.t('messages.pilot_selection', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
+    bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.pilot_selection', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
 def service_selection(message):
     user = retrieve_user(message.from_user.id)
 
     markup = menu_creation(buttons=SERVICES[user['selected_pilot']], language=user['selected_language'], type='services.'+user['selected_pilot'])
 
-    try:
-        bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=i18n.t('messages.service_selection', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
-    except AttributeError:
-        bot.send_message(chat_id=message.chat.id, text=i18n.t('messages.service_selection', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
+    bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.service_selection', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
 def language_course(message):
     user = retrieve_user(message.from_user.id)
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language']) + ' \U0001F44D', callback_data='course'))
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language']) + ' \U0001F44E', callback_data='nope'))
-    bot.edit_message_text(chat_id=message.from_user.id, message_id=message.message.id, text=i18n.t('messages.capeesh', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
+    markup.add(types.InlineKeyboardButton(text=i18n.t("commands.restart", locale=user['selected_language']), callback_data='restart'))
+    bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.capeesh', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
 def add_email(message):
     user = retrieve_user(message.from_user.id)    
@@ -380,12 +375,14 @@ def retrieve_user(user_id):
         users_file.close()
         return users[user_id]
 
-def menu_creation(buttons, language='en', type='commands'):
+def menu_creation(buttons, language='en', type='commands', lang_selection=False):
     markup = types.InlineKeyboardMarkup(row_width=1)
     for button in buttons:
         action = type + '.' + button
         markup.add(types.InlineKeyboardButton(text=i18n.t(action, locale=language), callback_data=button))
 
+    if not lang_selection:
+        markup.add(types.InlineKeyboardButton(text=i18n.t("commands.restart", locale=language), callback_data='restart'))
     return markup
 
 #########################
