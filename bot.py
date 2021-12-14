@@ -68,15 +68,18 @@ def location_handler(message):
     location = geolocator.reverse(position, language='en')
     
     # Trim the address in order to select only the municipality
-    municipality = location.raw['address']['city']
+    try:
+        municipality = location.raw['address']['city']
 
-    user = retrieve_user(message.from_user.id)
+        user = retrieve_user(message.from_user.id)
 
-    if municipality.lower() in PILOTS:
-        user['selected_pilot'] = municipality
-        auto_localisation(message)
-    else:
-        # The country is not supported
+        if municipality.lower() in PILOTS:
+            user['selected_pilot'] = municipality
+            auto_localisation(message)
+        else:
+            # The country is not supported
+            pilot_selection(message)
+    except KeyError:
         pilot_selection(message)
 
 """still need to understand wether this could be a possible solution for pathway visualization
@@ -191,7 +194,10 @@ def call_service_api(query):
         "registry_office": "Registration at Registry Office",
         "caz": "Clean Air Zone",
         "asylum_request": "Asylum Request",
-        "nationality": "Certification of Nationality"
+        "nationality": "Certification of Nationality",
+        "baes_esol": "baes esol",
+        "birth_certificate": "Birth Certification",
+        "work_permission": "Work Permission"
     }
     user = retrieve_user(query.from_user.id)
     user['selected_service'] = tmp_mapping[query.data]
