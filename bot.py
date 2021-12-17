@@ -28,6 +28,16 @@ users_file.close()
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
 
+service_mapping = {
+    "registry_office": "Registration at Registry Office",
+    "caz": "Clean Air Zone",
+    "asylum_request": "Asylum Request",
+    "nationality": "Certification of Nationality",
+    "baes_esol": "baes esol",
+    "birth_certificate": "Birth Certification",
+    "work_permission": "Work Permission"
+}
+
 ##################################
 ######## COMMAND HANDLERS ########
 ##################################
@@ -105,6 +115,13 @@ def visualize_step(query):
 
     bot.answer_callback_query(callback_query_id=query.id, show_alert=True, text=pathway[query.data])
 """
+@bot.message_handler(commands=['change_lang'])
+def change_lang(message):
+    user = retrieve_user(message.from_user.id)
+    user['action'] = 'help'
+
+    language_selection(message)
+
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def help(message):
     user = retrieve_user(message.from_user.id)
@@ -190,17 +207,8 @@ def location(query):
 
 @bot.callback_query_handler(lambda query: query.data in SERVICES[retrieve_user(query.from_user.id)['selected_pilot']])
 def call_service_api(query):
-    tmp_mapping = {
-        "registry_office": "Registration at Registry Office",
-        "caz": "Clean Air Zone",
-        "asylum_request": "Asylum Request",
-        "nationality": "Certification of Nationality",
-        "baes_esol": "baes esol",
-        "birth_certificate": "Birth Certification",
-        "work_permission": "Work Permission"
-    }
     user = retrieve_user(query.from_user.id)
-    user['selected_service'] = tmp_mapping[query.data]
+    user['selected_service'] = service_mapping[query.data]
 
     if user['action'] == 'capeesh':
         language_course(query)
@@ -271,12 +279,6 @@ def rating_submission(message):
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language'])+' \U0001F44D', callback_data='Useful'))
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language'])+' \U0001F44E', callback_data='Not Useful'))
     bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.rating', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
-
-def change_lang(message):
-    user = retrieve_user(message.from_user.id)
-    user['action'] = 'help'
-
-    language_selection(message)
 
 def ask_for_position(message):
     user = retrieve_user(message.from_user.id)
