@@ -307,7 +307,6 @@ def geolocalisation(message):
 
     user['action'] = 'localisation'
     # WARNING: IS THIS WORKING ALSO ON TELEGRAM WEB AND DESKTOP????
-    bot.delete_message(chat_id=message.from_user.id, message_id=message.message.id)
     bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.location', locale=user['selected_language']), reply_markup=keyboard, parse_mode='HTML')
 
 def language_selection(message):
