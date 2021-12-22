@@ -31,3 +31,7 @@ To activate the bot and enable its functionalities, just use the following comma
 python bot.py
 ```
 You can now find the Bot in Telegram by searching for the @easyrights_bot handle.
+
+### Functionalities
+
+![alt text](https://github.com/D2KLab/easyRights_bot/blob/main/imgs/calst.png)
