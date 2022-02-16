@@ -1,0 +1,77 @@
+it:
+  birmingham:
+    caz: '<b>Passo 1</b>
+
+      dove - sito web: https://vehiclecheck.drive:clean:air:zone.service.gov.uk/vehicle_checkers/
+
+      quando - orario di apertura: inizio 2020
+
+      come - documento: Numero di targa del veicolo (documento V5)
+
+      come - procedure: controllo del veicolo
+
+      <b>Passo 2</b>
+
+      dove - sito web: https://www.brumbreathes.co.uk/
+
+      quando - orario di apertura: giugno 2021
+
+      come - documento: Numero di registrazione del veicolo
+
+      come - procedure: domanda di esenzione
+
+      '
+  larissa:
+    nationality: '<b>Passo 1</b>
+
+      dove - ufficio fisico: Direzione Stato Urbano (RDT)
+
+      mai - tempo di risposta: 1 anno
+
+      come - documento: Passaporto, Permesso di soggiorno, Dichiarazione di naturalizzazione
+      del Comune di residenza, Domanda di naturalizzazione, Numero di iscrizione alla
+      previdenza sociale (AMKA), Azzeramenti fiscali degli ultimi anni
+
+      '
+  malaga:
+    asylum_request: '<b>Passo 1</b>
+
+      dove - sito web: https://sede.administracionespublicas.gob.es/icpplus/index.html
+
+      come - documento: numero di passaporto
+
+      come - procedure: registrazione per appuntamento online
+
+      <b>Passo 2</b>
+
+      come - documento: passaporto, due foto personali
+
+      come - procedure: appuntamento online
+
+      <b>Passaggio 3</b>
+
+      dove - uffici fisici: Polizia di Stato
+
+      quando - tempo di risposta: sei mesi
+
+      come - documento: documenti di identità, eventuali documenti (foto, certificazioni,
+      documenti) a supporto del caso migrante
+
+      come - procedure: colloquio
+
+      '
+  palermo:
+    registry_office: '<b>Passo 1</b>
+
+      dove - sito web: https://servizionline.comune.palermo.it/portcitt/jsp/home.jsp?modo=info&info=servizi.jsp&ARECOD=20&SERCOD=2280
+
+      come - documento: codice fiscale
+
+      come - procedura: prendere appuntamento
+
+      <b>Passo 2</b>
+
+      come - documento: codice fiscale, passaporto, documento riconoscimento, permesso
+      di soggiorno, richiesta rinnovo soggiorno
+
+      come - procedura: compilazione modulistica'

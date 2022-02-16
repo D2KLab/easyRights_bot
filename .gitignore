@@ -9,6 +9,5 @@ data/ratings.csv
 data/users.json
 
 .env
-locale/
 
 util/generate_safe_yml.py

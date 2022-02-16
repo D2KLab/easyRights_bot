@@ -1,0 +1,12 @@
+fr:
+  palermo:
+    registry_office: "Inscription au bureau d'enregistrement"
+  birmingham:
+    caz: "Zone d'air pur"
+    baes_esol: "Cours d'anglais BAES ESOL"
+  malaga:
+    asylum_request: "Demande d'asile"
+    work_permission: "Autorisation de travail"
+  larissa:
+    nationality: "Attestation de nationalité"
+    birth_certificate: "Certificat de naissance"

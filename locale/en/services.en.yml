@@ -1,0 +1,12 @@
+en:
+  palermo:
+    registry_office: "Registration at Registry Office"
+  birmingham:
+    caz: "Clean Air Zone"
+    baes_esol: "BAES language courses"
+  malaga:
+    asylum_request: "Asylum Request"
+    work_permission: "Work Permission"
+  larissa:
+    nationality: "Certification of Nationality"
+    birth_certificate: "Certification of Birth"

@@ -1,0 +1,12 @@
+el:
+  birmingham:
+    caz: Ζώνη Καθαρού Αέρα
+    baes_esol: "Μάθημα αγγλικών BAES ESOL"
+  larissa:
+    nationality: Πιστοποίηση ιθαγένειας
+    birth_certificate: "Πιστοποιητικό Γέννησης"
+  malaga:
+    asylum_request: Αίτημα ασύλου
+    work_permission: "Άδεια εργασίας"
+  palermo:
+    registry_office: Εγγραφή στο Γραφείο Μητρώου

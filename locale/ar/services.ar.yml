@@ -1,0 +1,12 @@
+ar:
+  birmingham:
+    caz: منطقة هواء نظيفة
+    baes_esol: "دورة اللغة الإنجليزية BAES ESOL"
+  larissa:
+    nationality: شهادة الجنسية
+    birth_certificate: "شهادة الميلاد"
+  malaga:
+    asylum_request: طلب اللجوء
+    work_permission: "إذن العمل"
+  palermo:
+    registry_office: التسجيل في مكتب التسجيل

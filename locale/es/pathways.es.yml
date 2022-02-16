@@ -1,0 +1,76 @@
+es:
+  birmingham:
+    caz: '<b> Paso 1 </b>
+
+      dónde - sitio web: https://vehiclecheck.drive-clean-air-zone.service.gov.uk/vehicle_checkers/
+
+      cuándo - horario de apertura: principios de 2020
+
+      cómo - documento : Número de registro del vehículo (Documento V5)
+
+      cómo - procedimiento: verificación del vehículo
+
+      <b> Paso 2 </b>
+
+      dónde - sitio web: https://www.brumbreathes.co.uk/
+
+      cuándo - horario de apertura : Junio de 2021
+
+      cómo - documento: número de registro del vehículo
+
+      cómo - procedimiento: solicitud de exención'
+  larissa:
+    nationality: '<b> Paso 1 </b>
+
+      dónde - oficina física: Dirección de Estado Urbano (GDR)
+
+      cuándo - tiempo de respuesta: 1 año
+
+      cómo - documento: Pasaporte, Permiso de Residencia, Declaración de Naturalización
+      del Municipio de mi residencia, Solicitud de naturalización, Número de registro
+      de la seguridad social (Α. Μ. Κ. Α.), Liquidación de impuestos de los últimos
+      años'
+  malaga:
+    asylum_request: '<b>Paso 1</b>
+
+      donde - sitio web: https://sede.administracionespublicas.gob.es/icpplus/index.html
+
+      cómo - documento: número de pasaporte
+
+      cómo - procedimiento: registro para cita en línea
+
+      <b>Paso 2</b>
+
+      cómo - documento: pasaporte, dos fotos personales
+
+      cómo - procedimiento: cita en línea
+
+      <b>Paso 3</b>
+
+      donde - oficinas físicas: Policía Nacional
+
+      Cuándo - tiempo de respuesta: seis meses
+
+      cómo - documento: documentos de identificación, cualquier documento (fotos,
+      certificaciones, papeles) que respalden el caso del migrante
+
+      cómo - procedimiento: entrevista personal
+
+      '
+  palermo:
+    registry_office: '<b>Paso 1</b>
+
+      dónde - sitio web: https://servizionline.comune.palermo.it/portcitt/jsp/home.jsp?modo=info&info=servizi.jsp&ARECOD=20&SERCOD=2280
+
+      cómo - documento: código Fiscal
+
+      cómo - procedimiento: concertar cita
+
+      <b>Paso 2</b>
+
+      cómo - documento: código fiscal, pasaporte, documento de identidad, permiso
+      de residencia, solicitud de renovación de estancia
+
+      cómo - procedimiento: recopilación de formularios
+
+      '

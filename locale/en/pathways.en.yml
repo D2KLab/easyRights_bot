@@ -1,0 +1,67 @@
+en:
+  birmingham:
+    baes_esol: '<b>Step 1</b>
+
+      where - website: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
+
+      how - procedure: form compilation
+
+      '
+  larissa:
+    birth_certificate: '<b>Step 1</b>
+
+      where - physical office: Register
+
+      never - response time: after the issuance of the birth certificate by the registry
+      office
+
+      how - document: Tax Number (AFM), Social Security Numbers (AMKA), Residence
+      Permit, Marital Status Certificate, Hospital Birth Statement
+
+      how - procedure: Personal submission of documents
+
+      '
+  malaga:
+    asylum_request: '<b>Step 1</b>
+
+      where - website: https://sede.administracionespublicas.gob.es/icpplus/index.html
+
+      how - document: number of passport
+
+      how - procedure: registration for online appointment
+
+      <b>Step 2</b>
+
+      how - document: passport, two personal photos
+
+      how - procedure: online appointment
+
+      <b>Step 3</b>
+
+      where - physical offices: National Police
+
+      when - response time: six months
+
+      how - document: identification documents, any documents (photos, certifications,
+      papers) supporting migrant case
+
+      how - procedure: personal interview
+
+      '
+  palermo:
+    registry_office: '<b>Step 1</b>
+
+      where - website: https://servizionline.comune.palermo.it/portcitt/jsp/home.jsp?modo=info&info=servizi.jsp&ARECOD=20&SERCOD=2280
+
+      how - document: fiscal Code
+
+      how - procedure: make appointment
+
+      <b>Step 2</b>
+
+      how - document: tax code, passport, identification document, residence permit,
+      request for renewal of stay
+
+      how - procedure: compilation of forms
+
+      '
