@@ -8,17 +8,15 @@ en:
 
       '
   larissa:
-    birth_certificate: '<b>Step 1</b>
+    nationality: '<b>Step 1</b>
 
-      where - physical office: Register
+      where - physical office: Urban Status Directorate (GDR)
 
-      never - response time: after the issuance of the birth certificate by the registry
-      office
+      never - response time: 1 year
 
-      how - document: Tax Number (AFM), Social Security Numbers (AMKA), Residence
-      Permit, Marital Status Certificate, Hospital Birth Statement
-
-      how - procedure: Personal submission of documents
+      how - document: Passport, Residence Permit, Naturalization Declaration from
+      the Municipality of my residence, Naturalization Application, Social Security
+      Registration Number (A.M.K.A.), Tax Clears of recent years
 
       '
   malaga:

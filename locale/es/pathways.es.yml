@@ -31,30 +31,41 @@ es:
       de la seguridad social (Α. Μ. Κ. Α.), Liquidación de impuestos de los últimos
       años'
   malaga:
-    asylum_request: '<b>Paso 1</b>
+    asylum_request: '<b>Paso 1: declaración de asilo - formulario</b>
 
-      donde - sitio web: https://sede.administracionespublicas.gob.es/icpplus/index.html
+      donde - oficina física: puesto fronterizo habilitado or oficina de asilo y refugio (oar) or comisarías de policía autorizadas or centros de internamiento de extranjeros or centro penitenciario (si aplica)
 
-      cómo - documento: número de pasaporte
+      cuándo - horario de apertura: lo antes posible, preferiblemente antes de un mes desde la entrada en el país
 
-      cómo - procedimiento: registro para cita en línea
+      cómo - documento: documento identificativo (si se posee), 2 fotografías en tamaño carnet, resguardo de la solicitud de cita previa (si aplica)
 
-      <b>Paso 2</b>
+      cómo - procedimiento: formulario de solicitud de asilo en la oficina de forma presencial
 
-      cómo - documento: pasaporte, dos fotos personales
+      <b>Paso 2: declaración de asilo - entrevista</b>
 
-      cómo - procedimiento: cita en línea
+      donde - oficina física: puesto fronterizo habilitado or oficina de asilo y refugio or comisarías de policía autorizadas or centros de internamiento de extranjeros (cie) or centro penitenciario (si aplica)
 
-      <b>Paso 3</b>
+      cuándo - horario de apertura: fecha y hora indicadas en la cita previa asignadas durante el paso 1
 
-      donde - oficinas físicas: Policía Nacional
+      cómo - documento: documento identificativo (si se posee), resguardo de la solicitud de cita previa (si aplica), y  todo tipo de documentos, objetos y elementos probatorios del caso de asilo
 
-      Cuándo - tiempo de respuesta: seis meses
+      cómo - procedimiento: datos generales + historia de solicitud de asilo (hablada o por escrito)
 
-      cómo - documento: documentos de identificación, cualquier documento (fotos,
-      certificaciones, papeles) que respalden el caso del migrante
+      <b>Paso 3: admisión a trámite</b>
 
-      cómo - procedimiento: entrevista personal
+      cuándo - tiempo de respuesta: solicitud en frontera y cie: 4 días // solicitud en territorio: 1 mes
+
+      cómo - documento: notificación formal (online / por carta) de denegación/inadmisión/admisión de la solicitud de asilo
+
+      <b>Paso 4: instrucción - si la solicitud es admitida a trámite</b>
+
+      cómo - procedimiento: puede producirse una segunda entrevista donde presentar nuevos datos y documentos
+
+      <b>Paso 5: resolución</b>
+
+      cuándo - tiempo de respuesta: 6 meses (oficialmente), es habitual recibir notificación de extensión de este tiempo
+
+      cómo - documento: notificación formal (online / por carta) de denegación/inadmisión/admisión de protección internacional
 
       '
   palermo:
