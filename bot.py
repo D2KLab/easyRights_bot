@@ -293,7 +293,7 @@ def location(query):
     """
     geolocalisation(query)
 
-@bot.callback_query_handler(lambda query: query.data in SERVICES[retrieve_user(query.from_user.id)['selected_pilot']])
+@bot.callback_query_handler(lambda query: query.data in SERVICES[ str.lower(retrieve_user(query.from_user.id)['selected_pilot']) ])
 def call_service_api(query):
     """
     This function catch the choice of the user about the service. If the action is capeesh, we redirect the information to the language_course function.
@@ -306,8 +306,13 @@ def call_service_api(query):
 
     :query: the Telegram query packet created when a callback_data is pressed.
     """
+
+    print(query)
+
     user = retrieve_user(query.from_user.id)
     user['selected_service'] = service_mapping[query.data]
+
+    print ( user['selected_service'])
 
     if user['action'] == 'capeesh':
         language_course(query)
