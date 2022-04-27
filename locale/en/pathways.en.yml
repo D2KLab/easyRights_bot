@@ -1,12 +1,4 @@
-en:
-  Birmingham:
-    baes_esol: '<b>Step 1</b>
-
-      where - website: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
-
-      how - procedure: form compilation
-
-      '
+en:    
   birmingham:
     caz: '<b>Step 1</b>
 
@@ -27,6 +19,13 @@ en:
       how - document: vehicle registration number
 
       how - procedure: exemption application
+
+      '
+    baes_esol: '<b>Step 1</b>
+
+      where - website: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
+
+      how - procedure: form compilation
 
       '
   larissa:
