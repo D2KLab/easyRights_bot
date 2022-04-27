@@ -1,5 +1,5 @@
 en:
-  birmingham:
+  Birmingham:
     baes_esol: '<b>Step 1</b>
 
       where - website: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
@@ -7,16 +7,40 @@ en:
       how - procedure: form compilation
 
       '
+  birmingham:
+    caz: '<b>Step 1</b>
+
+      where - website: https://vehiclecheck.drive:clean:air:zone.service.gov.uk/vehicle_checkers/
+
+      when - opening time: early 2020
+
+      how - document: Vehicle registration number (V5 Document)
+
+      how - procedure: vehicle check
+
+      <b>Step 2</b>
+
+      where - website: https://www.brumbreathes.co.uk/
+
+      when - opening time: June 2021
+
+      how - document: vehicle registration number
+
+      how - procedure: exemption application
+
+      '
   larissa:
-    nationality: '<b>Step 1</b>
+    birth_certificate: '<b>Step 1</b>
 
-      where - physical office: Urban Status Directorate (GDR)
+      where - physical office: Register
 
-      never - response time: 1 year
+      never - response time: after the issuance of the birth certificate by the registry
+      office
 
-      how - document: Passport, Residence Permit, Naturalization Declaration from
-      the Municipality of my residence, Naturalization Application, Social Security
-      Registration Number (A.M.K.A.), Tax Clears of recent years
+      how - document: Tax Number (AFM), Social Security Numbers (AMKA), Residence
+      Permit, Marital Status Certificate, Hospital Birth Statement
+
+      how - procedure: Personal submission of documents
 
       '
   malaga:

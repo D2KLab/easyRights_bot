@@ -1,10 +1,24 @@
 it:
   birmingham:
-    baes_esol: '<b>Passo 1</b>
+    caz: '<b>Passo 1</b>
 
-      dove - sito web: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
+      dove - sito web: https://vehiclecheck.drive:clean:air:zone.service.gov.uk/vehicle_checkers/
 
-      come - procedura: compilazione di moduli
+      quando - orario di apertura: inizio 2020
+
+      come - documento: Numero di targa del veicolo (documento V5)
+
+      come - procedura: controllo del veicolo
+
+      <b>Passo 2</b>
+
+      dove - sito web: https://www.brumbreathes.co.uk/
+
+      quando - orario di apertura: giugno 2021
+
+      come - documento: Numero di registrazione del veicolo
+
+      come - procedura: domanda di esenzione
 
       '
   larissa:
@@ -20,30 +34,20 @@ it:
 
       '
   malaga:
-    asylum_request: '<b>Passo 1</b>
+    work_permission: '<b>Passo 1</b>
 
       dove - sito web: https://sede.administracionespublicas.gob.es/icpplus/index.html
 
       come - documento: numero di passaporto
 
-      come - procedure: registrazione per appuntamento online
+      come - procedura: registrazione per appuntamento on line
 
       <b>Passo 2</b>
 
-      come - documento: passaporto, due foto personali
+      come - documento: Modulo di domanda EX:10, passaporto, certificato di casellario
+      giudiziale, documento di protezione internazionale
 
-      come - procedure: appuntamento online
-
-      <b>Passaggio 3</b>
-
-      dove - uffici fisici: Polizia di Stato
-
-      quando - tempo di risposta: sei mesi
-
-      come - documento: documenti di identità, eventuali documenti (foto, certificazioni,
-      documenti) a supporto del caso migrante
-
-      come - procedure: colloquio
+      come - procedura: Colloquio
 
       '
   palermo:
