@@ -22,15 +22,17 @@ it:
 
       '
   larissa:
-    nationality: '<b>Passo 1</b>
+    birth_certificate: '<b>Passo 1</b>
 
-      dove - ufficio fisico: Direzione Stato Urbano (RDT)
+      dove - ufficio fisico: Registrati
 
-      mai - tempo di risposta: 1 anno
+      mai - tempo di risposta: dopo il rilascio dell''atto di nascita da parte dell''anagrafe
 
-      come - documento: Passaporto, Permesso di soggiorno, Dichiarazione di naturalizzazione
-      del Comune di residenza, Domanda di naturalizzazione, Numero di iscrizione alla
-      previdenza sociale (AMKA), Azzeramenti fiscali degli ultimi anni
+      come - documento: Codice Fiscale (AFM), Numeri di previdenza sociale (AMKA),
+      Permesso di soggiorno, Certificato di stato civile, Dichiarazione di nascita
+      in ospedale
+
+      come - procedura: Presentazione personale di documenti
 
       '
   malaga:

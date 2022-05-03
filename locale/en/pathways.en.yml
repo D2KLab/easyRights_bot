@@ -1,5 +1,12 @@
-en:    
+en:
   birmingham:
+    baes_esol: '<b>Step 1</b>
+
+      where - website: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
+
+      how - procedure: form compilation
+
+      '
     caz: '<b>Step 1</b>
 
       where - website: https://vehiclecheck.drive:clean:air:zone.service.gov.uk/vehicle_checkers/
@@ -21,29 +28,20 @@ en:
       how - procedure: exemption application
 
       '
-    baes_esol: '<b>Step 1</b>
-
-      where - website: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
-
-      how - procedure: form compilation
-
-      '
   larissa:
-    birth_certificate: '<b>Step 1</b>
+    nationality: '<b>Step 1</b>
 
-      where - physical office: Register
+      where - physical office: Urban Status Directorate (GDR)
 
-      never - response time: after the issuance of the birth certificate by the registry
-      office
+      never - response time: 1 year
 
-      how - document: Tax Number (AFM), Social Security Numbers (AMKA), Residence
-      Permit, Marital Status Certificate, Hospital Birth Statement
-
-      how - procedure: Personal submission of documents
+      how - document: Passport, Residence Permit, Naturalization Declaration from
+      the Municipality of my residence, Naturalization Application, Social Security
+      Registration Number (A.M.K.A.), Tax Clears of recent years
 
       '
   malaga:
-    asylum_request: '<b>Step 1</b>
+    work_permission: '<b>Step 1</b>
 
       where - website: https://sede.administracionespublicas.gob.es/icpplus/index.html
 
@@ -53,20 +51,10 @@ en:
 
       <b>Step 2</b>
 
-      how - document: passport, two personal photos
+      how - document: Application form EX:10, passport, certificate of criminal records,
+      international protection document
 
-      how - procedure: online appointment
-
-      <b>Step 3</b>
-
-      where - physical offices: National Police
-
-      when - response time: six months
-
-      how - document: identification documents, any documents (photos, certifications,
-      papers) supporting migrant case
-
-      how - procedure: personal interview
+      how - procedure: Personal interview
 
       '
   palermo:

@@ -8,4 +8,4 @@ source env/bin/activate
 pip3 install -r requirements.txt
 
 # Start the bot
-nohup python3 bot.py > telegram_bot_log.out &
+nohup python3 bot.py >> telegram_bot_log.out &

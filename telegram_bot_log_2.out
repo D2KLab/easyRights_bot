@@ -1,0 +1,33 @@
+2022-04-20 11:52:46,507 (__init__.py:490 MainThread) INFO - TeleBot: "Started polling."
+{'game_short_name': None, 'chat_instance': '-747475962573532173', 'id': '660560443723781227', 'from_user': {'id': 153798713, 'is_bot': False, 'first_name': 'Giuseppe', 'username': 'grizzo', 'last_name': 'Rizzo', 'language_code': 'en', 'can_join_groups': None, 'can_read_all_group_messages': None, 'supports_inline_queries': None}, 'message': {'content_type': 'text', 'id': 4342, 'message_id': 4342, 'from_user': <telebot.types.User object at 0x7f81f32fb700>, 'date': 1650448272, 'chat': <telebot.types.Chat object at 0x7f81f32fb730>, 'forward_from': None, 'forward_from_chat': None, 'forward_from_message_id': None, 'forward_signature': None, 'forward_sender_name': None, 'forward_date': None, 'reply_to_message': None, 'edit_date': None, 'media_group_id': None, 'author_signature': None, 'text': 'Perfetto! Per quale dei servizi disponibili in questo comune hai bisogno di aiuto?', 'entities': None, 'caption_entities': None, 'audio': None, 'document': None, 'photo': None, 'sticker': None, 'video': None, 'video_note': None, 'voice': None, 'caption': None, 'contact': None, 'location': None, 'venue': None, 'animation': None, 'dice': None, 'new_chat_member': None, 'new_chat_members': None, 'left_chat_member': None, 'new_chat_title': None, 'new_chat_photo': None, 'delete_chat_photo': None, 'group_chat_created': None, 'supergroup_chat_created': None, 'channel_chat_created': None, 'migrate_to_chat_id': None, 'migrate_from_chat_id': None, 'pinned_message': None, 'invoice': None, 'successful_payment': None, 'connected_website': None, 'reply_markup': <telebot.types.InlineKeyboardMarkup object at 0x7f81f32fb160>, 'json': {'message_id': 4342, 'from': {'id': 1631433767, 'is_bot': True, 'first_name': 'easyRights Agent', 'username': 'easyrights_bot'}, 'chat': {'id': 153798713, 'first_name': 'Giuseppe', 'last_name': 'Rizzo', 'username': 'grizzo', 'type': 'private'}, 'date': 1650448272, 'text': 'Perfetto! Per quale dei servizi disponibili in questo comune hai bisogno di aiuto?', 'reply_markup': {'inline_keyboard': [[{'text': 'Zona Aria Pulita', 'callback_data': 'caz'}], [{'text': 'Corso di inglese BAES ESOL', 'callback_data': 'baes_esol'}], [{'text': "Ricomincia l'esperienza", 'callback_data': 'restart'}]]}}}, 'data': 'baes_esol', 'inline_message_id': None}
+baes esol
+Traceback (most recent call last):
+  File "bot.py", line 573, in <module>
+    bot.polling()
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/__init__.py", line 485, in polling
+    self.__threaded_polling(none_stop, interval, timeout, long_polling_timeout)
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/__init__.py", line 544, in __threaded_polling
+    raise e
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/__init__.py", line 506, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/util.py", line 87, in raise_exceptions
+    raise self.exception_info
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/util.py", line 69, in run
+    task(*args, **kwargs)
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/__init__.py", line 323, in __retrieve_updates
+    self.process_new_updates(updates)
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/__init__.py", line 396, in process_new_updates
+    self.process_new_callback_query(new_callback_queries)
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/__init__.py", line 428, in process_new_callback_query
+    self._notify_command_handlers(self.callback_query_handlers, new_callback_querys)
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/__init__.py", line 2183, in _notify_command_handlers
+    if self._test_message_handler(message_handler, message):
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/__init__.py", line 2149, in _test_message_handler
+    if not self._test_filter(message_filter, filter_value, message):
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/__init__.py", line 2170, in _test_filter
+    return test_cases.get(message_filter, lambda msg: False)(message)
+  File "/home/easyrights/Documents/easyRights_bot/env/lib/python3.8/site-packages/telebot/__init__.py", line 2167, in <lambda>
+    'func': lambda msg: filter_value(msg)
+  File "bot.py", line 296, in <lambda>
+    @bot.callback_query_handler(lambda query: query.data in SERVICES[ str.lower(retrieve_user(query.from_user.id)['selected_pilot']) ])
+KeyError: ''
