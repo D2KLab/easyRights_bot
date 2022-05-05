@@ -5,5 +5,20 @@ fr:
     caz: "<b>Étape 1</b>\noù - site Web : https://vehiclecheck.drive-clean-air-zone.service.gov.uk/vehicle_checkers/\nquand - heure d'ouverture : début 2020\ncomment - document : Numéro d'immatriculation du véhicule (Document V5)\ncomment - procédure : vérification du véhicule\n<b>Étape 2</b>\noù - site Web : https://www.brumbreathes.co.uk/\nquand - heure d'ouverture : juin 2021\ncomment - document : numéro d'immatriculation du véhicule\ncomment - procédure : demande de dérogation"
   malaga: 
     asylum_request: "<b>\u00c9tape 1</b>\no\u00f9 - site web\u00a0: https://sede.administracionespublicas.gob.es/icpplus/index.html\ncomment - document\u00a0: num\u00e9ro de passeport\ncomment - proc\u00e9dure\u00a0: inscription pour rendez-vous en ligne\n<b>\u00c9tape 2</b>\ncomment - document\u00a0: passeport, deux photos personnelles\ncomment - proc\u00e9dure\u00a0: rendez-vous en ligne\n<b>\u00c9tape 3</b>\no\u00f9 - bureaux_physiques\u00a0: Polic\u00eda Nacional\nquand - temps de r\u00e9ponse\u00a0: six mois\ncomment - document\u00a0: documents d'identification, tout document (photos, certifications, papiers) \u00e0 l'appui du cas du migrant\ncomment - proc\u00e9dure\u00a0: entretien personnel"
+    work_permission: '<b>Étape 1</b>
+
+      où - site web : https://sede.administracionespublicas.gob.es/icpplus/index.html
+
+      comment - document : numéro de passeport
+
+      comment - procédure : inscription au rendez-vous en ligne
+
+      <b>Étape 2</b>
+
+      comment - document : formulaire de demande EX:10, passeport, extrait de casier judiciaire, document de protection internationale
+
+      comment - procédure : entretien personnel
+
+      '
   larissa:
     nationality: "<b> Etape 1 </b>\noù - siège physique : Direction du Statut Urbain (GDR)\nquand - délai de réponse : 1 an\ncomment - document : Passeport, Titre de Séjour, Déclaration de Naturalisation de la Commune de mon résidence, demande de naturalisation, numéro d'enregistrement de la sécurité sociale (\u0391.\u039c.\u039a.\u0391.), quittances fiscales des dernières années"

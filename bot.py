@@ -268,7 +268,7 @@ def store_rating(query):
     dt_string = now.strftime("%Y-%m-%d %H:%M:%S,%f")
     log = {
         "datetime"            :  dt_string,
-        "user_id"             :  str(user_id),
+        "user_id"             :  user_id,
         "username"            :  handle_user,
         "query_id"            :  query.id,
         "chat_instance"       :  query.chat_instance,
