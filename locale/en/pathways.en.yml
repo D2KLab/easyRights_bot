@@ -29,34 +29,21 @@ en:
 
       '
   larissa:
-    nationality: '<b>Step 1</b>
+    birth_certificate: '<b>Step 1</b>
 
-      where - physical office: Urban Status Directorate (GDR)
+      where - physical office: Register
 
-      never - response time: 1 year
+      never - response time: after the issuance of the birth certificate by the registry
+      office
 
-      how - document: Passport, Residence Permit, Naturalization Declaration from
-      the Municipality of my residence, Naturalization Application, Social Security
-      Registration Number (A.M.K.A.), Tax Clears of recent years
+      how - document: Tax Number (AFM), Social Security Numbers (AMKA), Residence
+      Permit, Marital Status Certificate, Hospital Birth Statement
+
+      how - procedure: Personal submission of documents
 
       '
   malaga:
-    work_permission: '<b>Step 1</b>
-
-      where - website: https://sede.administracionespublicas.gob.es/icpplus/index.html
-
-      how - document: number of passport
-
-      how - procedure: registration for online appointment
-
-      <b>Step 2</b>
-
-      how - document: Application form EX:10, passport, certificate of criminal records,
-      international protection document
-
-      how - procedure: Personal interview
-
-      '
+    work_permission: pathways.malaga.work_permission
   palermo:
     registry_office: '<b>Step 1</b>
 

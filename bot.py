@@ -76,6 +76,17 @@ def calst(message):
     user = retrieve_user(message.from_user.id)
     user['action'] = 'calst'
 
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S,%f")
+
+    log = {
+        "datetime": dt_string,
+        "user_id": message.from_user.id,
+        "action": user["action"],
+        "selected_language": user['selected_language']
+    }
+    print(json.dumps(log))
+    
     return_markup = restart(message)
 
     bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.calst', locale=user['selected_language']), reply_markup=return_markup, parse_mode='HTML')
@@ -307,12 +318,25 @@ def call_service_api(query):
     :query: the Telegram query packet created when a callback_data is pressed.
     """
 
-    print(query)
+    
 
     user = retrieve_user(query.from_user.id)
     user['selected_service'] = service_mapping[query.data]
 
-    print ( user['selected_service'])
+    # LOG CREATION FOR PATHWAY AND CAPEESH
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S,%f")
+    log = {
+        "datetime": dt_string,
+        "user_id": query.from_user.id,
+        "action": user["action"],
+        "selected_pilot": user['selected_pilot'],
+        "selected_service": user['selected_service'],
+        "selected_language": user['selected_language']
+    }
+    print(json.dumps(log))
+
+    #print ( user['selected_service'])
 
     if user['action'] == 'capeesh':
         language_course(query)
@@ -354,12 +378,12 @@ def call_service_api(query):
             print(e)
             bot.send_message(chat_id=query.from_user.id, text=i18n.t('messages.error', locale=user['selected_language']))
 
-        path = './locale/' + language + '/pathways.' + language + '.yml'
+        path = './locale/' + user['selected_language'] + '/pathways.' + user['selected_language'] + '.yml'
         file_input = open(path, 'r')
         pathways_dict = yaml.safe_load(file_input)
         os.remove(path)
-        pathways_dict[language][user['selected_pilot']] = {}
-        pathways_dict[language][user['selected_pilot']].update({query.data: pathway_text})
+        pathways_dict[user['selected_language']][user['selected_pilot']] = {}
+        pathways_dict[user['selected_language']][user['selected_pilot']].update({query.data: pathway_text})
         yaml.safe_dump(pathways_dict, open(path, 'w'), encoding='utf-8', allow_unicode=True)
         
     bot.send_message(chat_id=query.from_user.id, text=pathway_text, parse_mode='HTML')
@@ -431,7 +455,7 @@ def geolocalisation(message):
 
     :message: the Telegram message.
 
-    NB: the localisation feature is not supported by Telegram Desktop, but it si by Telegram Web and Telegram Messenger.
+    NB: the localisation feature is not supported by Telegram Desktop, but it si by Telegram Web (only Google Chrome) and Telegram Messenger.
     """
     user = retrieve_user(message.from_user.id)
 

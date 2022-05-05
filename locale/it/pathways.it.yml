@@ -35,6 +35,15 @@ it:
       come - procedura: Presentazione personale di documenti
 
       '
+    nationality: '<b>Passo 1</b>
+
+      dove - ufficio fisico: Direzione Stato Urbano (RDT)
+
+      mai - tempo di risposta: 1 anno
+
+      come - documento: Passaporto, Permesso di soggiorno, Dichiarazione di naturalizzazione del Comune di residenza, Domanda di naturalizzazione, Numero di iscrizione alla previdenza sociale (AMKA), Azzeramenti fiscali degli ultimi anni
+      '
+    
   malaga:
     work_permission: '<b>Passo 1</b>
 
