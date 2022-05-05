@@ -21,6 +21,14 @@ it:
       come - procedura: domanda di esenzione
 
       '
+    baes_esol: '<b>Passo 1</b>
+
+      dove - sito web: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
+
+      come - procedura: compilazione modulistica
+
+      '
+    
   larissa:
     birth_certificate: '<b>Passo 1</b>
 
@@ -59,6 +67,43 @@ it:
       giudiziale, documento di protezione internazionale
 
       come - procedura: Colloquio
+
+      '
+    asylum_request: '<b>Passo 1: dichiarazione di asilo - modulo</b>
+
+      dove - ufficio fisico: posto di frontiera autorizzato o ufficio asilo e rifugio (oar) o stazioni di polizia autorizzate o centri di detenzione per stranieri o centro penitenziario (se applicabile)
+
+      quando - orari di apertura: il prima possibile, preferibilmente entro un mese dall''ingresso nel Paese
+
+      come - documento: documento di riconoscimento (se in possesso), 2 fotografie formato tessera, ricevuta della richiesta di appuntamento preventivo (se previsto)
+
+      come - procedura: modulo di domanda di asilo di persona presso l''ufficio
+
+      <b>Passo 2: dichiarazione di asilo - colloquio</b>
+
+      dove - ufficio fisico: posto di frontiera autorizzato o ufficio asilo e rifugio o stazioni di polizia autorizzate o centri di detenzione per stranieri (cie) o centro penitenziario (se applicabile)
+
+      quando - orari di apertura: data e ora indicate nell''appuntamento assegnato al punto 1
+
+      come - documento: documento di identità (se in possesso), ricevuta della richiesta di appuntamento preventivo (se applicabile) e tutti i tipi di documenti, oggetti e prove del caso di asilo
+
+      come - procedura: dati generali + cronologia delle domande di asilo (orale o scritta)
+
+      <b>Passo 3: ammissione per l''elaborazione</b>
+
+      quando - tempo di risposta: richiesta alla frontiera e cie: 4 giorni // richiesta nel territorio: 1 mese
+
+      come - documento: notifica formale (online/cartacea) di rifiuto/mancata ammissione/ammissione della domanda di asilo
+
+      <b>Passo 4: istruzioni - se la domanda è ammessa</b>
+
+      come - procedura: può aver luogo un secondo colloquio in cui vengono presentati nuovi dati e documenti
+
+      <b>Passo 5: risoluzione</b>
+
+      quando - tempo di risposta: 6 mesi (ufficialmente), è normale ricevere la notifica di proroga di tale termine
+
+      come - documento: comunicazione formale (online/cartacea) di rifiuto/mancata ammissione/ammissione di protezione internazionale
 
       '
   palermo:

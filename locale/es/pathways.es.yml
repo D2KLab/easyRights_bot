@@ -19,6 +19,14 @@ es:
       cómo - documento: número de registro del vehículo
 
       cómo - procedimiento: solicitud de exención'
+
+    baes_esol: '<b>Paso 1</b>
+
+      dónde - sitio web: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
+
+      cómo - procedimiento: compilación de formulario
+
+      '
   larissa:
     nationality: '<b> Paso 1 </b>
 
@@ -30,10 +38,24 @@ es:
       del Municipio de mi residencia, Solicitud de naturalización, Número de registro
       de la seguridad social (Α. Μ. Κ. Α.), Liquidación de impuestos de los últimos
       años'
+
+    birth_certificate: '<b>Paso 1</b>
+
+      dónde - oficina física: Registrarse
+
+      cuándo - tiempo de respuesta: después de que la oficina de registro haya emitido el certificado de nacimiento
+
+      cómo - documento: Código Fiscal (AFM), Números de Seguro Social (AMKA),
+      Permiso de residencia, certificado de estado civil, declaración de nacimiento
+      en el hospital
+
+      cómo - procedimiento: Presentación personal de documentos
+
+      '
   malaga:
     asylum_request: '<b>Paso 1: declaración de asilo - formulario</b>
 
-      donde - oficina física: puesto fronterizo habilitado or oficina de asilo y refugio (oar) or comisarías de policía autorizadas or centros de internamiento de extranjeros or centro penitenciario (si aplica)
+      dónde - oficina física: puesto fronterizo habilitado or oficina de asilo y refugio (oar) or comisarías de policía autorizadas or centros de internamiento de extranjeros or centro penitenciario (si aplica)
 
       cuándo - horario de apertura: lo antes posible, preferiblemente antes de un mes desde la entrada en el país
 
@@ -43,7 +65,7 @@ es:
 
       <b>Paso 2: declaración de asilo - entrevista</b>
 
-      donde - oficina física: puesto fronterizo habilitado or oficina de asilo y refugio or comisarías de policía autorizadas or centros de internamiento de extranjeros (cie) or centro penitenciario (si aplica)
+      dónde - oficina física: puesto fronterizo habilitado or oficina de asilo y refugio or comisarías de policía autorizadas or centros de internamiento de extranjeros (cie) or centro penitenciario (si aplica)
 
       cuándo - horario de apertura: fecha y hora indicadas en la cita previa asignadas durante el paso 1
 
@@ -68,6 +90,23 @@ es:
       cómo - documento: notificación formal (online / por carta) de denegación/inadmisión/admisión de protección internacional
 
       '
+    
+    work_permission: '<b>Paso 1</b>
+
+      dónde - sitio web: https://sede.administracionespublicas.gob.es/icpplus/index.html
+
+      cómo - documento: número de pasaporte
+
+      cómo - procedimiento: registro por cita en línea
+
+      <b>Paso 2</b>
+
+      cómo - documento: Formulario de solicitud EX: 10, pasaporte, antecedentes penales, documento de protección internacional
+
+      cómo - procedimiento: Entrevista
+
+      '
+
   palermo:
     registry_office: '<b>Paso 1</b>
 

@@ -80,10 +80,13 @@ def calst(message):
     dt_string = now.strftime("%Y-%m-%d %H:%M:%S,%f")
 
     log = {
-        "datetime": dt_string,
-        "user_id": message.from_user.id,
-        "action": user["action"],
-        "selected_language": user['selected_language']
+        "datetime"            :  dt_string,
+        "user_id"             :  message.from_user.id,
+        "username"            :  message.from_user.username,
+        "query_id"            :  message.id,
+        "chat_instance"       :  message.chat_instance,
+        "action"              :  user["action"],
+        "selected_language"   :  user['selected_language']
     }
     print(json.dumps(log))
     
@@ -243,20 +246,39 @@ def store_rating(query):
 
     # store also the handle of the user
     handle_user = query.from_user.username
+    user_id = query.from_user.id
     date_msg = datetime.fromtimestamp(query.message.date)
 
     try:
-        string_to_store = handle_user + ',' + str(date_msg) + ',' + user['selected_pilot'] + ',' + user['selected_service'] + ',' + user['selected_language'] + ','
+        string_to_store = str(user_id) + ',' + handle_user + ',' + str(date_msg) + ',' + user['selected_pilot'] + ',' + user['selected_service'] + ',' + user['selected_language'] + ','
         if query.data == 'Useful':
-            string_to_store = string_to_store + str(True) + '\n'
+            score = True
         else:
-            string_to_store = string_to_store + str(False) + '\n'
+            score = False
+        string_to_store = string_to_store + str(score) + '\n'
     except Exception as e:
         print(e)
         string_to_store = ''
 
     rating_file.write(string_to_store)
     rating_file.close()
+
+    # LOG CREATION
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S,%f")
+    log = {
+        "datetime"            :  dt_string,
+        "user_id"             :  str(user_id),
+        "username"            :  handle_user,
+        "query_id"            :  query.id,
+        "chat_instance"       :  query.chat_instance,
+        "action"              :  "rating",
+        "selected_pilot"      :  user['selected_pilot'],
+        "selected_service"    :  user['selected_service'],
+        "selected_language"   :  user['selected_language'],
+        "score"               :  score
+    }
+    print(json.dumps(log))
     return_markup = restart(query)
     bot.send_message(chat_id=query.from_user.id, text=i18n.t('messages.rating_submission', locale=user['selected_language']), reply_markup=return_markup)
 
@@ -318,7 +340,6 @@ def call_service_api(query):
     :query: the Telegram query packet created when a callback_data is pressed.
     """
 
-    
 
     user = retrieve_user(query.from_user.id)
     user['selected_service'] = service_mapping[query.data]
@@ -327,12 +348,15 @@ def call_service_api(query):
     now = datetime.now()
     dt_string = now.strftime("%Y-%m-%d %H:%M:%S,%f")
     log = {
-        "datetime": dt_string,
-        "user_id": query.from_user.id,
-        "action": user["action"],
-        "selected_pilot": user['selected_pilot'],
-        "selected_service": user['selected_service'],
-        "selected_language": user['selected_language']
+        "datetime"            :  dt_string,
+        "user_id"             :  query.from_user.id,
+        "username"            :  query.from_user.username,
+        "query_id"            :  query.id,
+        "chat_instance"       :  query.chat_instance,
+        "action"              :  user["action"],
+        "selected_pilot"      :  user['selected_pilot'],
+        "selected_service"    :  user['selected_service'],
+        "selected_language"   :  user['selected_language']
     }
     print(json.dumps(log))
 

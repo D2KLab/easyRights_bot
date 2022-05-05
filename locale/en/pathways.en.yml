@@ -33,17 +33,64 @@ en:
 
       where - physical office: Register
 
-      never - response time: after the issuance of the birth certificate by the registry
-      office
+      never - response time: after the issuance of the birth certificate by the registry office
 
-      how - document: Tax Number (AFM), Social Security Numbers (AMKA), Residence
-      Permit, Marital Status Certificate, Hospital Birth Statement
+      how - document: Tax Number (AFM), Social Security Numbers (AMKA), Residence Permit, Marital Status Certificate, Hospital Birth Statement
 
       how - procedure: Personal submission of documents
 
       '
+    nationality: '<b>Step 1</b>
+
+      where - physical office: Urban State Head Office
+
+      never - response time: 1 year
+
+      how - document: Passport, Residence Permit, Naturalization declaration of the municipality of residence, Application for Naturalization, Social Security Numbers (AMKA), Fiscal clearings in recent years
+      '
+
   malaga:
-    work_permission: pathways.malaga.work_permission
+    asylum_request: '<b>Step 1</b>
+
+      where - website: https://sede.administracionespublicas.gob.es/icpplus/index.html
+
+      how - document: number of passport
+
+      how - procedure: registration for online appointment
+
+      <b>Step 2</b>
+
+      how - document: passport, two personal photos
+
+      how - procedure: online appointment
+
+      <b>Step 3</b>
+
+      where - physical offices: National Police
+
+      when - response time: six months
+
+      how - document: identification documents, any documents (photos, certifications, papers) supporting migrant case
+      
+      how - procedure: personal interview
+
+      '
+    work_permission: '<b>Step 1</b>
+
+      where - website: https://sede.administracionespublicas.gob.es/icpplus/index.html
+
+      how - document: number of passport
+
+      how - procedure: registration for online appointment
+
+      <b>Step 2</b>
+
+      how - document: application form EX:10, passport, criminal record certificate, international protection document
+
+      how - procedure: personal interview
+
+      '
+
   palermo:
     registry_office: '<b>Step 1</b>
 
