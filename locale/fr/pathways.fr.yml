@@ -3,6 +3,12 @@ fr:
     registry_office: "<b>\u00c9tape 1</b>\nO\u00f9 - site Internet: https://servizionline.comune.palermo.it/portcitt/jsp/home.jsp?modo=info&info=servizi.jsp&ARECOD=20&SERCOD=2280\nComment - document: code fiscal\nComment - proc\u00e9dure: prendre un rendez-vous\n<b>\u00c9tape 2</b>\nComment - document: code fiscal, passeport, pi\u00e8ce d'identit\u00e9, titre de s\u00e9jour, demande de renouvellement de s\u00e9jour\nComment - proc\u00e9dure: compilation de formulaires\n"
   birmingham:
     caz: "<b>Étape 1</b>\noù - site Web : https://vehiclecheck.drive-clean-air-zone.service.gov.uk/vehicle_checkers/\nquand - heure d'ouverture : début 2020\ncomment - document : Numéro d'immatriculation du véhicule (Document V5)\ncomment - procédure : vérification du véhicule\n<b>Étape 2</b>\noù - site Web : https://www.brumbreathes.co.uk/\nquand - heure d'ouverture : juin 2021\ncomment - document : numéro d'immatriculation du véhicule\ncomment - procédure : demande de dérogation"
+    baes_esol : '<b>Étape 1</b>
+
+      où - site Web : https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
+
+      comment - procédure : compilation de formulaire
+      '
   malaga: 
     asylum_request: "<b>\u00c9tape 1</b>\no\u00f9 - site web\u00a0: https://sede.administracionespublicas.gob.es/icpplus/index.html\ncomment - document\u00a0: num\u00e9ro de passeport\ncomment - proc\u00e9dure\u00a0: inscription pour rendez-vous en ligne\n<b>\u00c9tape 2</b>\ncomment - document\u00a0: passeport, deux photos personnelles\ncomment - proc\u00e9dure\u00a0: rendez-vous en ligne\n<b>\u00c9tape 3</b>\no\u00f9 - bureaux_physiques\u00a0: Polic\u00eda Nacional\nquand - temps de r\u00e9ponse\u00a0: six mois\ncomment - document\u00a0: documents d'identification, tout document (photos, certifications, papiers) \u00e0 l'appui du cas du migrant\ncomment - proc\u00e9dure\u00a0: entretien personnel"
     work_permission: '<b>Étape 1</b>
@@ -21,4 +27,24 @@ fr:
 
       '
   larissa:
-    nationality: "<b> Etape 1 </b>\noù - siège physique : Direction du Statut Urbain (GDR)\nquand - délai de réponse : 1 an\ncomment - document : Passeport, Titre de Séjour, Déclaration de Naturalisation de la Commune de mon résidence, demande de naturalisation, numéro d'enregistrement de la sécurité sociale (\u0391.\u039c.\u039a.\u0391.), quittances fiscales des dernières années"
+
+    nationality: '<b> Etape 1 </b>
+
+      où - siège physique : Direction du Statut Urbain (GDR)
+
+      quand - délai de réponse : 1 an
+
+      comment - document : Passeport, Titre de Séjour, Déclaration de Naturalisation de la Commune de mon résidence, demande de naturalisation, numéro d''enregistrement de la sécurité sociale (\u0391.\u039c.\u039a.\u0391.), quittances fiscales des dernières années 
+      
+      '
+      
+    birth_certificate: ' <b> Étape 1 </b>
+
+      où - bureau physique : S''inscrire
+
+      jamais - délai de réponse : après la délivrance de l''acte de naissance par l''état civil
+
+      comment - documenter: numéro fiscal (AFM), numéros de sécurité sociale (AMKA), permis de séjour, certificat d''état civil, déclaration de naissance à l''hôpital
+
+      comment - procédure : Remise personnelle des documents
+      '

@@ -29,82 +29,8 @@ en:
 
       '
   larissa:
-    birth_certificate: '<b>Step 1</b>
-
-      where - physical office: Register
-
-      never - response time: after the issuance of the birth certificate by the registry office
-
-      how - document: Tax Number (AFM), Social Security Numbers (AMKA), Residence Permit, Marital Status Certificate, Hospital Birth Statement
-
-      how - procedure: Personal submission of documents
-
-      '
-    nationality: '<b>Step 1</b>
-
-      where - physical office: Urban Status Directorate (GDR)
-
-      never - response time: 1 year
-
-      how - document: Passport, Residence Permit, Naturalization Declaration from the Municipality of my residence, Naturalization Application, Social Security Registration Number (A.M.K.A.), Tax Clears of recent years
-      '
-
+    nationality: pathways.larissa.nationality
   malaga:
-    asylum_request: '<b>Step 1</b>
-
-      where - website: https://sede.administracionespublicas.gob.es/icpplus/index.html
-
-      how - document: number of passport
-
-      how - procedure: registration for online appointment
-
-      <b>Step 2</b>
-
-      how - document: passport, two personal photos
-
-      how - procedure: online appointment
-
-      <b>Step 3</b>
-
-      where - physical offices: National Police
-
-      when - response time: six months
-
-      how - document: identification documents, any documents (photos, certifications, papers) supporting migrant case
-      
-      how - procedure: personal interview
-
-      '
-    work_permission: '<b>Step 1</b>
-
-      where - website: https://sede.administracionespublicas.gob.es/icpplus/index.html
-
-      how - document: number of passport
-
-      how - procedure: registration for online appointment
-
-      <b>Step 2</b>
-
-      how - document: application form EX:10, passport, criminal record certificate, international protection document
-
-      how - procedure: personal interview
-
-      '
-
+    work_permission: pathways.malaga.work_permission
   palermo:
-    registry_office: '<b>Step 1</b>
-
-      where - website: https://servizionline.comune.palermo.it/portcitt/jsp/home.jsp?modo=info&info=servizi.jsp&ARECOD=20&SERCOD=2280
-
-      how - document: fiscal Code
-
-      how - procedure: make appointment
-
-      <b>Step 2</b>
-
-      how - document: tax code, passport, identification document, residence permit,
-      request for renewal of stay
-
-      how - procedure: compilation of forms
-
-      '
+    registry_office: pathways.palermo.registry_office

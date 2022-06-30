@@ -13,13 +13,16 @@ from dotenv import dotenv_values
 from data.static import LANGUAGES, PILOTS, SERVICES, COMMANDS
 from telebot import types
 from googletrans import Translator
+from telegram.ext import Updater
 
 for folder in os.listdir('./locale/'):
     i18n.load_path.append('./locale/' + folder)
 
 config = dotenv_values(".env")
 
-bot = telebot.TeleBot(config['TELEGRAM_API_TOKEN'], parse_mode=None)
+# bot = telebot.TeleBot(config['TELEGRAM_API_TOKEN'], parse_mode=None)
+bot = Updater(config['TELEGRAM_API_TOKEN'])
+j = bot.job_queue
 
 users_file = open('./data/users.json', 'r')
 users = json.loads(users_file.read())
@@ -84,7 +87,7 @@ def calst(message):
         "user_id"             :  message.from_user.id,
         "username"            :  message.from_user.username,
         "query_id"            :  message.id,
-        "chat_instance"       :  message.chat_instance,
+        #"chat_instance"       :  message.chat_instance,
         "action"              :  user["action"],
         "selected_language"   :  user['selected_language']
     }
@@ -276,7 +279,7 @@ def store_rating(query):
         "selected_pilot"      :  user['selected_pilot'],
         "selected_service"    :  user['selected_service'],
         "selected_language"   :  user['selected_language'],
-        "score"               :  score
+        "score"               :  query.data
     }
     print(json.dumps(log))
     return_markup = restart(query)
@@ -368,6 +371,9 @@ def call_service_api(query):
 
     translation_key = 'pathways.' + user['selected_pilot'] + '.' + query.data
     pathway_text = i18n.t(translation_key, locale=user['selected_language'])
+    print(pathway_text)
+    print(translation_key)
+    
     
     if pathway_text == translation_key:
         files = {'data': (None, '{"pilot":"' + user['selected_pilot'] +'","service":"' + user['selected_service'] + '"}'),}
@@ -376,8 +382,8 @@ def call_service_api(query):
         try:
             response = requests.post(url, files=files)
 
-            pathway = json.loads(response.text)
-
+            pathway = json.loads(response.text)  
+            
             pathway_text = ''
             block_message = ''
             language = user['selected_language']
@@ -411,7 +417,8 @@ def call_service_api(query):
         yaml.safe_dump(pathways_dict, open(path, 'w'), encoding='utf-8', allow_unicode=True)
         
     bot.send_message(chat_id=query.from_user.id, text=pathway_text, parse_mode='HTML')
-
+    
+    # j.run_once(rating_submission(query), 5)
     rating_submission(query)
 
 ###########################
@@ -541,7 +548,7 @@ def language_course(message):
 
 def add_email(message):
     """
-    Capeesh integration. Here, we check if the input mail is correct and then we made an API request to Capeesh for insert the email into their databases.
+    Capeesh integration. Here, we check if the input mail or username is correct and then we make an API request to Capeesh to insert the email into their databases.
 
     :message: the Telegram message.
 
@@ -549,12 +556,17 @@ def add_email(message):
     """
     user = retrieve_user(message.from_user.id)    
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    regex2 = r'[A-Za-z0-9._-]'
     email = message.text
+
+    if re.match(regex2, email):
+        email = email + "@easyrights.eu"
 
     if not re.match(regex, email):
         msg = bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.capeesh_mail_error', locale=user['selected_language']), parse_mode='html')
         bot.register_next_step_handler(msg, add_email)
         return
+
 
     api_key = config['CAPEESH_API_TOKEN']
     api_key_get_headers = {
@@ -602,7 +614,7 @@ def menu_creation(buttons, language='en', type='commands', skip_restart=False):
     :buttons: list of the buttons. The values of this list will define the data of the callback.
     :langague: the language. The default is english.
     :type: specifies the type of button. Useful for building the python i18n translation key.
-    :skip_restart: if set to True, the restart button will not appear. 
+    :skip_restat: if set to True, the restart button will not appear. 
     """
 
     markup = types.InlineKeyboardMarkup(row_width=1)
@@ -613,9 +625,9 @@ def menu_creation(buttons, language='en', type='commands', skip_restart=False):
     if not skip_restart:
         markup.add(types.InlineKeyboardButton(text=i18n.t("commands.restart", locale=language), callback_data='restart'))
     return markup
+    
+##########################
+######## POLLING #########
+##########################
 
-#########################
-######## POLLING ########
-#########################
-
-bot.polling()
+bot.run_polling()
