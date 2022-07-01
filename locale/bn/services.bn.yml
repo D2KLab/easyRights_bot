@@ -1,0 +1,12 @@
+bn:
+  palermo:
+    registry_office: "রেজিস্ট্রি অফিসে নিবন্ধন"
+  birmingham:
+    caz: "ক্লিন এয়ার জোন"
+    baes_esol: "BAES ভাষা কোর্স"
+  malaga:
+    asylum_request: "আশ্রয়ের অনুরোধ"
+    work_permission: "কাজের অনুমতি"
+  larissa:
+    nationality: "জাতীয়তার শংসাপত্র"
+    birth_certificate: "জন্মের শংসাপত্র"

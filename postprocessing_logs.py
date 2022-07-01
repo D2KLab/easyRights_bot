@@ -11,7 +11,7 @@ def is_json(myjson):
     return False
   return True
 
-with open("telegram_bot_log.out", "r") as log_file:
+with open("telegram_bot_log_copy.out", "r") as log_file:
     logs = log_file.readlines()
 
 developers_id = ["858840591","1971283519","153798713"]

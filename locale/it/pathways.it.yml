@@ -1,5 +1,12 @@
 it:
   birmingham:
+    baes_esol: '<b>Passo 1</b>
+
+      dove - sito web: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
+
+      come - procedura: compilazione modulistica
+
+      '
     caz: '<b>Passo 1</b>
 
       dove - sito web: https://vehiclecheck.drive:clean:air:zone.service.gov.uk/vehicle_checkers/
@@ -21,14 +28,6 @@ it:
       come - procedura: domanda di esenzione
 
       '
-    baes_esol: '<b>Passo 1</b>
-
-      dove - sito web: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
-
-      come - procedura: compilazione modulistica
-
-      '
-    
   larissa:
     birth_certificate: '<b>Passo 1</b>
 
@@ -49,9 +48,9 @@ it:
 
       mai - tempo di risposta: 1 anno
 
-      come - documento: Passaporto, Permesso di soggiorno, Dichiarazione di naturalizzazione del Comune di residenza, Domanda di naturalizzazione, Numero di iscrizione alla previdenza sociale (AMKA), Azzeramenti fiscali degli ultimi anni
-      '
-    
+      come - documento: Passaporto, Permesso di soggiorno, Dichiarazione di naturalizzazione
+      del Comune di residenza, Domanda di naturalizzazione, Numero di iscrizione alla
+      previdenza sociale (AMKA), Azzeramenti fiscali degli ultimi anni '
   malaga:
     work_permission: '<b>Passo 1</b>
 

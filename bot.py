@@ -13,16 +13,13 @@ from dotenv import dotenv_values
 from data.static import LANGUAGES, PILOTS, SERVICES, COMMANDS
 from telebot import types
 from googletrans import Translator
-from telegram.ext import Updater
 
 for folder in os.listdir('./locale/'):
     i18n.load_path.append('./locale/' + folder)
 
 config = dotenv_values(".env")
 
-# bot = telebot.TeleBot(config['TELEGRAM_API_TOKEN'], parse_mode=None)
-bot = Updater(config['TELEGRAM_API_TOKEN'])
-j = bot.job_queue
+bot = telebot.TeleBot(config['TELEGRAM_API_TOKEN'], parse_mode=None)
 
 users_file = open('./data/users.json', 'r')
 users = json.loads(users_file.read())
@@ -49,7 +46,6 @@ service_mapping = {
 def pathway(message):
     """
     Start of the pathway experience. We set this as action of the user and we proceed to ask for the position.
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -61,7 +57,6 @@ def pathway(message):
 def capeesh(message):
     """
     Start of the language course experience. We set this as action of the user and we proceed to ask for the municipality.
-
     :message: the Telegram message.
     """
     users[str(message.from_user.id)]['action'] = 'capeesh'
@@ -72,7 +67,6 @@ def capeesh(message):
 def calst(message):
     """
     Start of the pronunciation exercises experience. We set this as action of the user and we proceed to send a message with the link of CALST platform.
-
     :message: the Telegram message.
     #TODO: possible further integration for selecting source and target language for the platform.
     """
@@ -101,7 +95,6 @@ def calst(message):
 def start(message):
     """
     This is what happens when, in the first contact with the chatbot, the user click on "start". We set "help" as action and proceed to ask what language has to be set for the experience.
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -116,7 +109,6 @@ def location_handler(message):
     The other information about the position is not used, since we check only if the city is one of the municipalities supported.
     If this is the case, we set the user['selected_pilot'] and proceed to ask for the services supported by that city.
     In all the other cases, we continue the experience by explicitly asking for the pilot selection.
-
     :message: the Telegram message.
     """
     # Instatiate and retrieve the address based on the position sent by the user
@@ -149,17 +141,14 @@ def visualize_pathway(message):
     markup = types.InlineKeyboardMarkup(row_width=1)
     for step in pathway.keys():
         markup.add(types.InlineKeyboardButton(text=step, callback_data=step))
-
     bot.send_message(chat_id=message.from_user.id, text='test', reply_markup=markup, parse_mode='HTML')
     rating_submission(message)
-
 @bot.callback_query_handler(lambda query: "Step" in query.data)
 def visualize_step(query):
     pathway = {'Step 1': 'This is the text related to step 1',
                 'Step 2': 'This is the text related to step 2',
                 'Step 3': 'This is the text related to step 3',
             }
-
     bot.answer_callback_query(callback_query_id=query.id, show_alert=True, text=pathway[query.data])
 """
 @bot.message_handler(commands=['change_lang'])
@@ -168,7 +157,6 @@ def change_lang(message):
     This function is meant to add the command for changing the language. 
     This is because if the user choose a language he does not know by accident, it is difficult to change it from the buttons displayed in help message.
     This command will be also displayed in the bottom left menu on telegram mobile devices.
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -181,7 +169,6 @@ def help(message):
     """
     This is the main message that is displayed to the user.
     The button menu displays all the possible commands that can be chose by the user.
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -197,7 +184,6 @@ def help(message):
 def command_handler(query):
     """
     This function explicitly call one of the commands that is selected by pressing one of the buttons displayed in help message.
-
     :query: the Telegram query packet created when a callback_data is pressed.
     """
     globals()[query.data](query)
@@ -207,7 +193,6 @@ def language_handler(query):
     """
     This function catch the user choice of the language.
     Based on the action that has been set for the user, we choose the proper function to call.
-
     :query: the Telegram query packet created when a callback_data is pressed.
     """
     user = retrieve_user(query.from_user.id)
@@ -227,7 +212,6 @@ def pilot_handler(query):
     """
     This function catch the selection of the pilot. We save this information in the user in his information and we call the function that displays the 
     menu of the available services in that pilot.
-
     :query: the Telegram query packet created when a callback_data is pressed.
     """
     user = retrieve_user(query.from_user.id)
@@ -241,7 +225,6 @@ def store_rating(query):
     This function catch the selection of the rating asked to the user for the quality of the pathway information. 
     We store these information in the ratings.csv file.
     The information saved are: the user, the timestamp, the pilot, the service, the language and finally the choice.
-
     :query: the Telegram query packet created when a callback_data is pressed.
     """
     user = retrieve_user(query.from_user.id)
@@ -289,7 +272,6 @@ def store_rating(query):
 def sign_up_to_capeesh(query):
     """
     This function catch the choice of the user for the language course. If the user press yes, we proceed to ask the email for accessing Capeesh.
-
     :query: the Telegram query packet created when a callback_data is pressed.
     """
     user = retrieve_user(query.from_user.id)
@@ -301,7 +283,6 @@ def return_to_menu(query):
     """
     This function catch when the user press a negative button. If this answer is on the capeesh experience, we return to the help message.
     If this answer is on the pathway experience (no location sharing), we proceed to the selection of the pilots.
-
     :query: the Telegram query packet created when a callback_data is pressed.
     """
     user = retrieve_user(query.from_user.id)
@@ -315,7 +296,6 @@ def return_to_menu(query):
 def restart_experience(query):
     """
     This function catch the choice of the user to resetart the experience. We redirect the user to the help message with the commands available.
-
     :query: the Telegram query packet created when a callback_data is pressed.
     """
     help(query)
@@ -324,7 +304,6 @@ def restart_experience(query):
 def location(query):
     """
     This function catch the choice to share the position. We then proceed to display the proper button to do so. 
-
     :query: the Telegram query packet created when a callback_data is pressed.
     """
     geolocalisation(query)
@@ -337,9 +316,7 @@ def call_service_api(query):
     If the translation of the pathway is already present, we already store the information and we just display the text.
     Otherwise, we call the API, load the result and translate the text with Google Translator. We then display the message and proceed to update the translations
     file.
-
     The loop has the purpose to read the response from the json format of the pathway.
-
     :query: the Telegram query packet created when a callback_data is pressed.
     """
 
@@ -371,10 +348,8 @@ def call_service_api(query):
 
     translation_key = 'pathways.' + user['selected_pilot'] + '.' + query.data
     pathway_text = i18n.t(translation_key, locale=user['selected_language'])
-    print(pathway_text)
-    print(translation_key)
-    
-    
+    language = user['selected_language']
+
     if pathway_text == translation_key:
         files = {'data': (None, '{"pilot":"' + user['selected_pilot'] +'","service":"' + user['selected_service'] + '"}'),}
 
@@ -386,7 +361,6 @@ def call_service_api(query):
             
             pathway_text = ''
             block_message = ''
-            language = user['selected_language']
             translator = Translator()
 
             for step in pathway:
@@ -403,22 +377,39 @@ def call_service_api(query):
                 
                     pathway_text = pathway_text + block_message
                     block_message = ''
+            path = './locale/' + user['selected_language'] + '/pathways.' + user['selected_language'] + '.yml'
+            file_input = open(path, 'r')
+            pathways_dict = yaml.safe_load(file_input)
+            os.remove(path)
+            if pathways_dict[user['selected_language']][user['selected_pilot']]:
+                pathways_dict[user['selected_language']][user['selected_pilot']].update({query.data: pathway_text})
+            else:
+                pathways_dict[user['selected_language']][user['selected_pilot']] = {}
+                pathways_dict[user['selected_language']][user['selected_pilot']].update({query.data: pathway_text})
+            yaml.safe_dump(pathways_dict, open(path, 'w'), encoding='utf-8', allow_unicode=True)
 
         except Exception as e:
             print(e)
             bot.send_message(chat_id=query.from_user.id, text=i18n.t('messages.error', locale=user['selected_language']))
 
+    elif pathway_text[:9] == '<b>Step 1' and language != 'en':
+        print("here")
+        translator = Translator()
+        pathway_text = translator.translate(pathway_text, dest=language).text
+
         path = './locale/' + user['selected_language'] + '/pathways.' + user['selected_language'] + '.yml'
         file_input = open(path, 'r')
         pathways_dict = yaml.safe_load(file_input)
         os.remove(path)
-        pathways_dict[user['selected_language']][user['selected_pilot']] = {}
-        pathways_dict[user['selected_language']][user['selected_pilot']].update({query.data: pathway_text})
+        if pathways_dict[user['selected_language']][user['selected_pilot']]:
+            pathways_dict[user['selected_language']][user['selected_pilot']].update({query.data: pathway_text})
+        else:
+            pathways_dict[user['selected_language']][user['selected_pilot']] = {}
+            pathways_dict[user['selected_language']][user['selected_pilot']].update({query.data: pathway_text})
         yaml.safe_dump(pathways_dict, open(path, 'w'), encoding='utf-8', allow_unicode=True)
         
     bot.send_message(chat_id=query.from_user.id, text=pathway_text, parse_mode='HTML')
     
-    # j.run_once(rating_submission(query), 5)
     rating_submission(query)
 
 ###########################
@@ -429,7 +420,6 @@ def restart(message):
     """
     Show the "restart" button. The list of buttons is empty because in menu_creation it is an option already considered to be added to other list of buttons.
     This function is called when the user reach the end of one of the three experiences offered (pathway, language course and pronunciation exercises).
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -440,7 +430,6 @@ def restart(message):
 def rating_submission(message):
     """
     We ask if the information displayed in the pathway is useful or not.
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -453,7 +442,6 @@ def rating_submission(message):
 def ask_for_position(message):
     """
     Ask the user wether he wants to share his location.
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -467,9 +455,7 @@ def ask_for_position(message):
 def auto_localisation(message):
     """
     If the location of the user correspond to one of the available municipalities, we show the services supported.
-
     :message: the Telegram message.
-
     TODO: align with the menu_creation function
     """
     user = retrieve_user(message.from_user.id)
@@ -483,9 +469,7 @@ def auto_localisation(message):
 def geolocalisation(message):
     """
     Print a button for the location request. The key parameter is the request_location in the button features.
-
     :message: the Telegram message.
-
     NB: the localisation feature is not supported by Telegram Desktop, but it si by Telegram Web (only Google Chrome) and Telegram Messenger.
     """
     user = retrieve_user(message.from_user.id)
@@ -500,7 +484,6 @@ def geolocalisation(message):
 def language_selection(message):
     """
     Creation of the menu buttons with the supported languages from the bot.
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -512,7 +495,6 @@ def language_selection(message):
 def pilot_selection(message):
     """
     Creation of the menu buttons with the list of the available municipalities.
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -524,7 +506,6 @@ def pilot_selection(message):
 def service_selection(message):
     """
     Creation of the menu buttons with the services supported in the pilot selected by the user.
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -536,7 +517,6 @@ def service_selection(message):
 def language_course(message):
     """
     Capeesh integration. We ask the user wether he wants to access a language course.
-
     :message: the Telegram message.
     """
     user = retrieve_user(message.from_user.id)
@@ -549,9 +529,7 @@ def language_course(message):
 def add_email(message):
     """
     Capeesh integration. Here, we check if the input mail or username is correct and then we make an API request to Capeesh to insert the email into their databases.
-
     :message: the Telegram message.
-
     TODO: escape char or sequence if the user does not want to insert an email.
     """
     user = retrieve_user(message.from_user.id)    
@@ -589,7 +567,6 @@ def add_email(message):
 def retrieve_user(user_id):
     """
     Retrieves the user from the users global variable. If not found, update the user file with the addition of the new one.
-
     :user_id: the user id that has to be find. 
     """
     try:
@@ -610,7 +587,6 @@ def retrieve_user(user_id):
 def menu_creation(buttons, language='en', type='commands', skip_restart=False):
     """
     Function for the creation of buttons menu.
-
     :buttons: list of the buttons. The values of this list will define the data of the callback.
     :langague: the language. The default is english.
     :type: specifies the type of button. Useful for building the python i18n translation key.
@@ -630,4 +606,4 @@ def menu_creation(buttons, language='en', type='commands', skip_restart=False):
 ######## POLLING #########
 ##########################
 
-bot.run_polling()
+bot.polling()
