@@ -1,0 +1,12 @@
+uk:
+  palermo:
+    registry_office: "Реєстрація в РАГСі"
+  birmingham:
+    caz: "Зона чистого повітря"
+    baes_esol: "Мовні курси BAES"
+  malaga:
+    asylum_request: "Запит на надання притулку"
+    work_permission: "Дозвіл на роботу"
+  larissa:
+    nationality: "Посвідчення громадянства"
+    birth_certificate: "Свідоцтво про народження"

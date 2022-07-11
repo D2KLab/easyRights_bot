@@ -124,7 +124,7 @@ def location_handler(message):
 
         if municipality.lower() in PILOTS:
             user['selected_pilot'] = municipality
-            auto_localisation(message)
+            auto_localisation(message) 
         else:
             # The country is not supported
             pilot_selection(message)
@@ -239,7 +239,7 @@ def store_rating(query):
         string_to_store = str(user_id) + ',' + handle_user + ',' + str(date_msg) + ',' + user['selected_pilot'] + ',' + user['selected_service'] + ',' + user['selected_language'] + ','
         if query.data == 'Useful':
             score = True
-        else:
+        elif query.data == 'Not Useful':
             score = False
         string_to_store = string_to_store + str(score) + '\n'
     except Exception as e:
@@ -275,6 +275,7 @@ def sign_up_to_capeesh(query):
     :query: the Telegram query packet created when a callback_data is pressed.
     """
     user = retrieve_user(query.from_user.id)
+    # markup = restart(query)
     msg = bot.send_message(chat_id=query.from_user.id, text=i18n.t('messages.capeesh_mail_insertion', locale=user['selected_language']))
     bot.register_next_step_handler(msg, add_email)
 
@@ -353,7 +354,7 @@ def call_service_api(query):
     if pathway_text == translation_key:
         files = {'data': (None, '{"pilot":"' + user['selected_pilot'] +'","service":"' + user['selected_service'] + '"}'),}
 
-        url = 'http://easyrights.linksfoundation.com/v0.3/generate'
+        url = 'https://easyrights.linksfoundation.com/v0.3/generate'
         try:
             response = requests.post(url, files=files)
 
@@ -437,6 +438,7 @@ def rating_submission(message):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language'])+' \U0001F44D', callback_data='Useful'))
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language'])+' \U0001F44E', callback_data='Not Useful'))
+    markup.add(types.InlineKeyboardButton(text=i18n.t('commands.restart', locale=user['selected_language']), callback_data='restart'))
     bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.rating', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
 def ask_for_position(message):
@@ -523,7 +525,6 @@ def language_course(message):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language']) + ' \U0001F44D', callback_data='course'))
     markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language']) + ' \U0001F44E', callback_data='nope'))
-    markup.add(types.InlineKeyboardButton(text=i18n.t("commands.restart", locale=user['selected_language']), callback_data='restart'))
     bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.capeesh', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
 def add_email(message):
@@ -536,6 +537,10 @@ def add_email(message):
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     regex2 = r'[A-Za-z0-9._-]'
     email = message.text
+
+    # if email == "@escape":
+    #     user['action'] = 'help'                     
+    #     help(query)
 
     if re.match(regex2, email):
         email = email + "@easyrights.eu"
