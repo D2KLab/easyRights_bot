@@ -3,7 +3,7 @@ it:
   lang_selection: "Per favore, seleziona una lingua:"
   pilot_selection: "Grazie per la tua scelta. Ecco un elenco di comuni in cui possiamo aiutarti, scegline uno:"
   service_selection: "Perfetto! Per quale dei servizi disponibili in questo comune hai bisogno di aiuto?"
-  rating: "Pensi che le informazioni fornite siano state utili?"
+  rating: "Prenditi il ​​tuo tempo per valutare il nostro servizio e torna più tardi per darci un feedback! Se utile &#128077;, altrimenti &#128078;"
   rating_submission: "Grazie per l'aiuto!"
   capeesh: "Sei sicuro di voler fare pratica con un corso di lingua su questo servizio? Dovrai inserire un email"
   error: "Il servizio non \u00e8 temporaneamente disponibile. Per favore riprova pi\u00f9 tardi."
