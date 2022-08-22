@@ -1,4 +1,4 @@
-LANGUAGES = [ 'it', 'en', 'es', 'el', 'fr', 'ar', 'bn', 'fa', 'ur']
+LANGUAGES = [ 'it', 'en', 'es', 'el', 'fr', 'ar', 'bn', 'fa', 'ur', 'uk']
 
 PILOTS = [ 'palermo', 'birmingham', 'malaga', 'larissa' ]
 
