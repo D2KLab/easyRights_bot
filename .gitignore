@@ -1,12 +1,18 @@
 __pycache__/
 env/
 telegram_bot_log.out
+telegram_bot_log_copy.out
+telegram_bot_log_2.out
 
 data/__pycache__/
 data/pathways.json
 data/message_translation.json
 data/ratings.csv
 data/users.json
+
+
+postprocessing_logs.py
+analysis/
 
 .env
 

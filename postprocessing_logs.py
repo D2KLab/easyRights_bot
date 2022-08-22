@@ -11,10 +11,10 @@ def is_json(myjson):
     return False
   return True
 
-with open("telegram_bot_log_copy.out", "r") as log_file:
+with open("telegram_bot_log.out", "r") as log_file:
     logs = log_file.readlines()
 
-developers_id = ["858840591","1971283519","153798713"]
+developers_id = ["1971283519","153798713"]
 
 if os.stat("telegram_bot_log_copy.out").st_size > 0:
     with open("telegram_bot_log_copy.out", "w") as log_file:
@@ -185,11 +185,15 @@ plt.show()
 # NUMBER OF USERS PER LANGUAGE
 languages = {
     "ar": [],
+    "bn": [],
     "el": [],
     "en": [],
     "es": [],
+    "fa": [],
     "fr": [],
-    "it": []
+    "it": [],
+    "ur": [],
+    "uk": []
 }
 for log in logs:
     log = json.loads(log)
@@ -217,6 +221,12 @@ languages = {
         "birmingham": [],
         "palermo": []
         },
+    "bn": {
+        "malaga": [],
+        "larissa": [],
+        "birmingham": [],
+        "palermo": []
+        },
     "el": {
         "malaga": [],
         "larissa": [],
@@ -235,6 +245,12 @@ languages = {
         "birmingham": [],
         "palermo": []
     },
+    "fa": {
+        "malaga": [],
+        "larissa": [],
+        "birmingham": [],
+        "palermo": []
+    },
     "fr": {
         "malaga": [],
         "larissa": [],
@@ -246,7 +262,19 @@ languages = {
         "larissa": [],
         "birmingham": [],
         "palermo": []
-        }
+        },
+    "ur": {
+        "malaga": [],
+        "larissa": [],
+        "birmingham": [],
+        "palermo": []
+    },
+    "uk": {
+        "malaga": [],
+        "larissa": [],
+        "birmingham": [],
+        "palermo": []
+    }
 }
 
 for language in languages:
@@ -262,7 +290,7 @@ for language in languages:
         languages[language][pilot] = len(languages[language][pilot])
 
 print("\nNumber of users per pilot in each language:")
-languages = pd.DataFrame(languages, columns = ["it", "fr", "es", "en", "el", "ar"], index = ["malaga", "larissa", "birmingham", "palermo"])
+languages = pd.DataFrame(languages, columns = list(languages.keys()), index = ["malaga", "larissa", "birmingham", "palermo"])
 languages.to_csv("./analysis/tables/n_users_pilot_language.csv")
 print(languages)
 
