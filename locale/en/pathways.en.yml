@@ -1,5 +1,12 @@
-en:   
+en:
   birmingham:
+    baes_esol: '<b>Step 1</b>
+
+      where - website: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
+
+      how - procedure: form compilation
+
+      '
     caz: '<b>Step 1</b>
 
       where - website: https://vehiclecheck.drive:clean:air:zone.service.gov.uk/vehicle_checkers/
@@ -21,13 +28,6 @@ en:
       how - procedure: exemption application
 
       '
-    baes_esol: '<b>Step 1</b>
-
-      where - website: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
-
-      how - procedure: form compilation
-
-      '
   larissa:
     birth_certificate: '<b>Step 1</b>
 
@@ -44,48 +44,65 @@ en:
       '
     nationality: '<b>Step 1</b>
 
-      where - physical office: Urban State Head Office
+      where - physical office: Directorate of Urban Status (DAK)
 
       never - response time: 1 year
 
-      how - document: Passport, Residence Permit, Naturalization declaration of the municipality of residence, Application for Naturalization, Social Security Numbers (AMKA), Fiscal clearings in recent years
+      how - document: Passport, Residence Permit, Declaration of Naturalization from
+      my Municipality of residence, Application for Naturalization, Social Security
+      Number (A.M.K.A.), Tax returns from recent years
+
       '
   malaga:
     asylum_request: '<b>Step 1: declaration of asylum - form </b>
 
-      where - physical office: authorized border post or asylum and refuge office (oar) or authorized police stations or detention centers for foreigners or penitentiary center (if applicable)
+      where - physical office: authorized border post or asylum and refuge office
+      (oar) or authorized police stations or detention centers for foreigners or penitentiary
+      center (if applicable)
 
-      when - opening hours: as soon as possible, preferably within one month of entering the country
+      when - opening hours: as soon as possible, preferably within one month of entering
+      the country
 
-      how - document: identification document (if in possession), 2 passport-size photographs, receipt of the request for a preventive appointment (if applicable)
+      how - document: identification document (if in possession), 2 passport-size
+      photographs, receipt of the request for a preventive appointment (if applicable)
 
       how - procedure: asylum application form in person at the office
 
       <b> Step 2: declaration of asylum - interview </b>
 
-      where - physical office: authorized border post or asylum and refuge office or authorized police stations or detention centers for foreigners (cie) or penitentiary center (if applicable)
+      where - physical office: authorized border post or asylum and refuge office
+      or authorized police stations or detention centers for foreigners (cie) or penitentiary
+      center (if applicable)
 
-      when - opening hours: date and time indicated in the appointment indicated in point 1
+      when - opening hours: date and time indicated in the appointment indicated in
+      point 1
 
-      how - document: identity document (if in possession), receipt of the request for a preventive appointment (if applicable) and all types of documents, objects and evidence of the asylum case
+      how - document: identity document (if in possession), receipt of the request
+      for a preventive appointment (if applicable) and all types of documents, objects
+      and evidence of the asylum case
 
       how - procedure: general data + history of asylum applications (oral or written)
 
       <b> Step 3: Admission for processing </b>
 
-      when - response time: request at the border and cie: 4 days // request in the territory: 1 month
+      when - response time: request at the border and cie: 4 days // request in the
+      territory: 1 month
 
-      how - document: formal notification (online / paper) of refusal / non-admission / admission of the asylum application
+      how - document: formal notification (online / paper) of refusal / non-admission
+      / admission of the asylum application
 
       <b> Step 4: Instructions - if the question is accepted </b>
 
-      how - procedure: a second interview may take place in which new data and documents are presented
+      how - procedure: a second interview may take place in which new data and documents
+      are presented
 
       <b> Step 5: Resolution </b>
 
-      when - response time: 6 months (officially), it is normal to be notified of the extension of this deadline
+      when - response time: 6 months (officially), it is normal to be notified of
+      the extension of this deadline
 
-      how - document: formal communication (online / paper) of refusal / non-admission / admission of international protection
+      how - document: formal communication (online / paper) of refusal / non-admission
+      / admission of international protection
 
       '
     work_permission: '<b>Step 1</b>
@@ -98,12 +115,10 @@ en:
 
       <b>Step 2</b>
 
-      how - document: application form EX:10, passport, criminal record certificate, international protection document
+      how - document: application form EX:10, passport, criminal record certificate,
+      international protection document
 
-      how - procedure: personal interview
-      '
-
-
+      how - procedure: personal interview '
   palermo:
     registry_office: '<b>Step 1</b>
 
