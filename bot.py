@@ -542,7 +542,7 @@ def add_email(message):
     #     user['action'] = 'help'                     
     #     help(query)
 
-    if re.match(regex2, email):
+    if re.match(regex2, email) and not re.match(regex, email):
         email = email + "@easyrights.eu"
 
     if not re.match(regex, email):
