@@ -394,7 +394,7 @@ def call_service_api(query):
             bot.send_message(chat_id=query.from_user.id, text=i18n.t('messages.error', locale=user['selected_language']))
 
     elif pathway_text[:9] == '<b>Step 1' and language != 'en':
-        print("here")
+        # print("here")
         translator = Translator()
         pathway_text = translator.translate(pathway_text, dest=language).text
 
@@ -408,7 +408,11 @@ def call_service_api(query):
             pathways_dict[user['selected_language']][user['selected_pilot']] = {}
             pathways_dict[user['selected_language']][user['selected_pilot']].update({query.data: pathway_text})
         yaml.safe_dump(pathways_dict, open(path, 'w'), encoding='utf-8', allow_unicode=True)
-        
+    
+    # introductory message that explains what is a pathway
+    pathway_introduction = i18n.t('messages.pathway_intro', locale=user['selected_language']) #+ i18n.t('services.'+user['selected_service'], locale=user['selected_language'])
+    bot.send_message(chat_id=query.from_user.id, text=pathway_introduction, parse_mode='HTML')
+
     bot.send_message(chat_id=query.from_user.id, text=pathway_text, parse_mode='HTML')
     
     rating_submission(query)

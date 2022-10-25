@@ -2,7 +2,7 @@ LANGUAGES = [ 'it', 'en', 'es', 'el', 'fr', 'ar', 'bn', 'fa', 'ur', 'uk']
 
 PILOTS = [ 'palermo', 'birmingham', 'malaga', 'larissa' ]
 
-COMMANDS = [ 'pathway', 'calst', 'capeesh', 'help', 'change_lang' ]
+COMMANDS = [ 'pathway', 'calst', 'capeesh',  'change_lang' ] #'help',
 
 SERVICES = {
     'palermo': ['registry_office'],
