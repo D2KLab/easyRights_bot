@@ -2,7 +2,9 @@ __pycache__/
 env/
 telegram_bot_log.out
 telegram_bot_log_copy.out
-telegram_bot_log_2.out
+telegram_bot_log-keyerror.out
+telegram_bot_log-timeout.out
+telegram_bot_log-peers.out
 
 data/__pycache__/
 data/pathways.json
@@ -12,7 +14,7 @@ data/users.json
 
 
 postprocessing_logs.py
-analysis/
+analysis/ 
 
 .env
 
