@@ -14,7 +14,7 @@ def is_json(myjson):
 with open("telegram_bot_log.out", "r") as log_file:
     logs = log_file.readlines()
 
-developers_id = ["1971283519","153798713"]
+developers_id = ["1971283519","153798713","858840591"]
 
 if os.stat("telegram_bot_log_copy.out").st_size > 0:
     with open("telegram_bot_log_copy.out", "w") as log_file:
@@ -136,13 +136,14 @@ plt.show()
 actions = {
     "capeesh": [],
     "calst": [],
-    "pathway": [],
+    "pathway": []
 }
 for log in logs:
     log = json.loads(log)
     if str(log["action"]) != "localisation" and str(log["action"]) != "rating":
-        if str(log["user_id"]) not in actions[str(log["action"])]:
-            actions[str(log["action"])].append(str(log["user_id"]))
+        if str(log["action"]) != 'help':
+            if str(log["user_id"]) not in actions[str(log["action"])]:
+                actions[str(log["action"])].append(str(log["user_id"]))
 for action in actions:
     actions[action] = len(actions[action])
 print("Number of users per action:")

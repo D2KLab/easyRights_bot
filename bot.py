@@ -309,7 +309,7 @@ def location(query):
     """
     geolocalisation(query)
 
-@bot.callback_query_handler(lambda query: query.data in SERVICES[ str.lower(retrieve_user(query.from_user.id)['selected_pilot']) ])
+@bot.callback_query_handler(lambda query: query.data in SERVICES[str.lower(retrieve_user(query.from_user.id)['selected_pilot'])])
 def call_service_api(query):
     """
     This function catch the choice of the user about the service. If the action is capeesh, we redirect the information to the language_course function.
@@ -413,7 +413,7 @@ def call_service_api(query):
     pathway_introduction = i18n.t('messages.pathway_intro', locale=user['selected_language']) #+ i18n.t('services.'+user['selected_service'], locale=user['selected_language'])
     bot.send_message(chat_id=query.from_user.id, text=pathway_introduction, parse_mode='HTML')
 
-    bot.send_message(chat_id=query.from_user.id, text=pathway_text, parse_mode='HTML')
+    bot.send_message(chat_id=query.from_user.id, text=pathway_text, parse_mode='HTML') #parse_mode='HTML'
     
     rating_submission(query)
 
@@ -615,4 +615,15 @@ def menu_creation(buttons, language='en', type='commands', skip_restart=False):
 ######## POLLING #########
 ##########################
 
-bot.polling()
+while True:
+    try:
+        # bot.infinity_polling(timeout=10, long_polling_timeout = 5)
+        # bot.polling(True)
+        bot.polling()
+    except Exception as e:
+        now = datetime.now()
+        dt_string = now.strftime("%Y-%m-%d %H:%M:%S,%f")
+        print("Exception occurred: ", dt_string)
+        print(e)
+        
+    
