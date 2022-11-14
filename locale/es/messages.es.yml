@@ -9,7 +9,7 @@ es:
   error: "El servicio no está disponible temporalmente. Por favor, inténtelo de nuevo más tarde."
   location: "Para seleccionar mejor los servicios, h\u00e1ganos saber d\u00f3nde se encuentra haciendo clic en \"\u00a1Comparta su ubicaci\u00f3n!\" \u00a1boton de abajo!"
   location_permission: "Al compartir tu ubicación, podemos mostrarte directamente los servicios disponibles en tu ciudad. ¿Quieres compartir tu ubicación?"
-  calst: "\u00a1Hola! CALST es una plataforma dise\u00f1ada para practicar la pronunciaci\u00f3n en una lengua extranjera, con ejercicios dise\u00f1ados espec\u00edficamente en base a la combinaci\u00f3n de tu lengua materna y la que necesitas practicar.\n\n Puede acceder a la herramienta a trav\u00e9s del siguiente enlace: https://www.ntnu.edu/isl/calst"
+  calst: "\u00a1Hola! CALST es una plataforma dise\u00f1ada para practicar la pronunciaci\u00f3n en una lengua extranjera, con ejercicios dise\u00f1ados espec\u00edficamente en base a la combinaci\u00f3n de tu lengua materna y la que necesitas practicar.\n\n Puede acceder a la herramienta a trav\u00e9s del siguiente enlace: https://testcalst.hf.ntnu.no/"
   "yes": "S\u00ed"
   "no": "No"
   capeesh_mail_insertion: "Por favor, ingrese su dirección de correo electrónico o cree un nombre de usuario para Capeesh: \n\nIMPORTANTE: si no usa un correo electrónico real, no podrá recuperar su contraseña en caso de que la pierda"

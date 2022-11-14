@@ -9,7 +9,7 @@ en:
   error: "The service is temporarily unavailable. Please, try again later."
   location: "In order to better select services, please, let us know where you are by clicking on the 'Share your Location!' button below!"
   location_permission: "By sharing your location, we can show you directly the services available in your city. Do you want to share your location?"
-  calst: "Hi! CALST is a platform designed to practice pronunciation in a foreign language, with exercises specifically designed based on the combination of your native language and the one you need to practice.\n\n You can access the tool using the following link: https://www.ntnu.edu/isl/calst"
+  calst: "Hi! CALST is a platform designed to practice pronunciation in a foreign language, with exercises specifically designed based on the combination of your native language and the one you need to practice.\n\n You can access the tool using the following link: https://testcalst.hf.ntnu.no/"
   "yes": "Yes"
   "no": "No"
   capeesh_mail_insertion: "Please, enter your email address or create a username for Capeesh: \n\nIMPORTANT: if you don't use a real email you won't be able to retrieve your password in case you lose it"

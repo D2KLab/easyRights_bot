@@ -616,6 +616,7 @@ def menu_creation(buttons, language='en', type='commands', skip_restart=False):
 ##########################
 
 while True:
+    print("restart")
     try:
         # bot.infinity_polling(timeout=10, long_polling_timeout = 5)
         # bot.polling(True)
