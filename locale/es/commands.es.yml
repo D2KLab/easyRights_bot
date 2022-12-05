@@ -1,7 +1,8 @@
 es:
-  pathway: 'Accede a las instrucciones simplificadas de los servicios'
-  calst: 'Acceder a ejercicios de pronunciación'
-  capeesh: 'Acceder a cursos de idiomas'
+  pathway: 'Instrucciones simplificadas de los servicios'
+  calst: 'Ejercicios de pronunciación'
+  capeesh: 'Cursos de idiomas'
+  wiki: 'Espacio wiki de easyRights'
   help: 'Ayudar'
   change_lang: 'Cambia el idioma'
   ar: 🇦🇪

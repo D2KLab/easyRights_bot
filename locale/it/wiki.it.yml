@@ -1,0 +1,12 @@
+it:
+  birmingham:
+    baes_esol: "Questo è un collegamento allo spazio wiki per il servizio richiesto: \nhttps://wiki-easyrights.fly.dev/en/home/wikibirmingham/Englishcourse"
+    caz: "Questo è un collegamento allo spazio wiki per il servizio richiesto: \nhttps://wiki-easyrights.fly.dev/en/home/wikibirmingham/CAZ"
+  larissa:
+    birth_certificate: "Prossimamente"
+    nationality: "Prossimamente"
+  malaga:
+    asylum_request: "Questo è un collegamento allo spazio wiki per il servizio richiesto:\nhttps://malaga-wiki-easy-rights.herokuapp.com/en/home"
+    work_permission: "Questo è un collegamento allo spazio wiki per il servizio richiesto:\nhttps://malaga-wiki-easy-rights.herokuapp.com/en/home"
+  palermo:
+    job_seeking: "Questo è un collegamento allo spazio wiki per il servizio richiesto: \nhttps://wiki-easyrights.comune.palermo.it/it/home"

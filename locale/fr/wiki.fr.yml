@@ -1,0 +1,12 @@
+fr:
+  birmingham:
+    baes_esol: "Ceci est un lien vers l'espace wiki du service demandé: \nhttps://wiki-easyrights.fly.dev/en/home/wikibirmingham/Englishcourse"
+    caz: "Ceci est un lien vers l'espace wiki du service demandé: \nhttps://wiki-easyrights.fly.dev/en/home/wikibirmingham/CAZ"
+  larissa:
+    birth_certificate: "Bientôt disponible"
+    nationality: "Bientôt disponible"
+  malaga:
+    asylum_request: "Ceci est un lien vers l'espace wiki pour le service demandé:\nhttps://malaga-wiki-easy-rights.herokuapp.com/en/home"
+    work_permission: "Ceci est un lien vers l'espace wiki pour le service demandé:\nhttps://malaga-wiki-easy-rights.herokuapp.com/en/home"
+  palermo:
+    job_seeking: "Ceci est un lien vers l'espace wiki pour le service demandé: \nhttps://wiki-easyrights.comune.palermo.it/en/home"

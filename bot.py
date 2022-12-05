@@ -30,6 +30,7 @@ telebot.logger.setLevel(logging.INFO)
 
 service_mapping = {
     "registry_office": "Registration at Registry Office",
+    "job_seeking": "Job Seeking",
     "caz": "Clean Air Zone",
     "asylum_request": "Asylum Request",
     "nationality": "Certification of Nationality",
@@ -60,6 +61,16 @@ def capeesh(message):
     :message: the Telegram message.
     """
     users[str(message.from_user.id)]['action'] = 'capeesh'
+
+    pilot_selection(message)
+
+@bot.message_handler(commands=['wiki'])
+def wiki(message):
+    """
+    Start of the wiki experience. We set this as action of the user and we proceed to ask for the municipality.
+    :message: the Telegram message.
+    """
+    users[str(message.from_user.id)]['action'] = 'wiki'
 
     pilot_selection(message)
 
@@ -127,6 +138,7 @@ def location_handler(message):
             auto_localisation(message) 
         else:
             # The country is not supported
+            bot.send_message(chat_id=message.from_user.id, text='There are no services available in your city.', parse_mode='HTML')
             pilot_selection(message)
     except KeyError:
         pilot_selection(message)
@@ -201,6 +213,8 @@ def language_handler(query):
     if user['action'] == 'capeesh':
         pilot_selection(query)
     elif user['action'] == 'pathway':
+        pilot_selection(query)
+    elif user['action'] == 'wiki':
         pilot_selection(query)
     elif user['action'] == 'localisation':
         geolocalisation(query)
@@ -323,6 +337,7 @@ def call_service_api(query):
 
 
     user = retrieve_user(query.from_user.id)
+    # service_key = user['selected_service'] 
     user['selected_service'] = service_mapping[query.data]
 
     # LOG CREATION FOR PATHWAY AND CAPEESH
@@ -345,6 +360,9 @@ def call_service_api(query):
 
     if user['action'] == 'capeesh':
         language_course(query)
+        return
+    elif user['action'] == 'wiki':
+        wiki_payoff(query)
         return
 
     translation_key = 'pathways.' + user['selected_pilot'] + '.' + query.data
@@ -411,9 +429,24 @@ def call_service_api(query):
     
     # introductory message that explains what is a pathway
     pathway_introduction = i18n.t('messages.pathway_intro', locale=user['selected_language']) #+ i18n.t('services.'+user['selected_service'], locale=user['selected_language'])
-    bot.send_message(chat_id=query.from_user.id, text=pathway_introduction, parse_mode='HTML')
+    if user['selected_pilot'] == "palermo" and query.data == "job_seeking":
+        pass
+    else:
+        bot.send_message(chat_id=query.from_user.id, text=pathway_introduction, parse_mode='HTML')
 
     bot.send_message(chat_id=query.from_user.id, text=pathway_text, parse_mode='HTML') #parse_mode='HTML'
+
+    # Further info and services
+    if user['selected_pilot'] == 'malaga':
+        pass
+        # extra_service = i18n.t('messages.malaga_payoff', locale=user['selected_language'])
+        # bot.send_message(chat_id=query.from_user.id, text=extra_service, parse_mode='HTML')
+    elif user['selected_pilot'] == "palermo" and query.data == "job_seeking":
+        pass
+    else:
+        # print('messages.'+user['selected_pilot']+'_'+query.data+'_payoff')
+        extra_service = i18n.t('messages.'+user['selected_pilot']+'_'+query.data+'_payoff', locale=user['selected_language'])
+        bot.send_message(chat_id=query.from_user.id, text=extra_service, parse_mode='HTML')
     
     rating_submission(query)
 
@@ -440,8 +473,11 @@ def rating_submission(message):
     user = retrieve_user(message.from_user.id)
 
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language'])+' \U0001F44D', callback_data='Useful'))
-    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language'])+' \U0001F44E', callback_data='Not Useful'))
+    # markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language'])+' \U0001F44D', callback_data='Useful'))
+    # markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language'])+' \U0001F44E', callback_data='Not Useful'))
+    markup.add(types.InlineKeyboardButton(text=' \U0001F44D', callback_data='Useful'), 
+            types.InlineKeyboardButton(text=' \U0001F44E', callback_data='Not Useful'))
+    # markup.add(types.InlineKeyboardButton(text=' \U0001F44E', callback_data='Not Useful'))
     markup.add(types.InlineKeyboardButton(text=i18n.t('commands.restart', locale=user['selected_language']), callback_data='restart'))
     bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.rating', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
@@ -452,8 +488,9 @@ def ask_for_position(message):
     """
     user = retrieve_user(message.from_user.id)
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language'])+' \U0001F44D', callback_data='location'))
-    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language'])+' \U0001F44E', callback_data='nope'))
+    # markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language'])+' \U0001F44D', callback_data='location'))
+    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language']), callback_data='location'), 
+            types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language']), callback_data='nope'))
     markup.add(types.InlineKeyboardButton(text=i18n.t("commands.restart", locale=user['selected_language']), callback_data='restart'))
 
     bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.location_permission', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
@@ -468,7 +505,13 @@ def auto_localisation(message):
 
     markup = types.InlineKeyboardMarkup()
     for service in SERVICES[user['selected_pilot'].lower()]:
-       markup.add(types.InlineKeyboardButton(text=service, callback_data=service)) 
+        if service == "job_seeking" and user['action'] == "pathway":
+            pass
+        elif service == "registry_office" and user['action'] == "wiki":
+            pass
+        else:
+            markup.add(types.InlineKeyboardButton(text=service, callback_data=service)) 
+
 
     bot.send_message(chat_id=message.chat.id, text=i18n.t('messages.service_selection', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
@@ -476,7 +519,7 @@ def geolocalisation(message):
     """
     Print a button for the location request. The key parameter is the request_location in the button features.
     :message: the Telegram message.
-    NB: the localisation feature is not supported by Telegram Desktop, but it si by Telegram Web (only Google Chrome) and Telegram Messenger.
+    NB: the localisation feature is not supported by Telegram Desktop, but it is by Telegram Web (only Google Chrome) and Telegram Messenger.
     """
     user = retrieve_user(message.from_user.id)
 
@@ -516,7 +559,17 @@ def service_selection(message):
     """
     user = retrieve_user(message.from_user.id)
 
-    markup = menu_creation(buttons=SERVICES[user['selected_pilot']], language=user['selected_language'], type='services.'+user['selected_pilot'])
+    # we need to distinguish the service choice for palermo
+    service_buttons = []
+    for service in SERVICES[user['selected_pilot']]:
+        if service == "job_seeking" and user['action'] == "pathway":
+            pass
+        elif service == "registry_office" and user['action'] == "wiki":
+            pass
+        else:
+            service_buttons.append(service)
+
+    markup = menu_creation(buttons=service_buttons, language=user['selected_language'], type='services.'+user['selected_pilot'])
 
     bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.service_selection', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
 
@@ -527,9 +580,15 @@ def language_course(message):
     """
     user = retrieve_user(message.from_user.id)
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language']) + ' \U0001F44D', callback_data='course'))
-    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.no', locale=user['selected_language']) + ' \U0001F44E', callback_data='nope'))
+    # markup.add(types.InlineKeyboardButton(text=i18n.t('messages.yes', locale=user['selected_language']) + ' \U0001F44D', callback_data='course'))
+    markup.add(types.InlineKeyboardButton(text=i18n.t('messages.next', locale=user['selected_language']), callback_data='course'),
+                types.InlineKeyboardButton(text=i18n.t('messages.back', locale=user['selected_language']), callback_data='nope'))
     bot.send_message(chat_id=message.from_user.id, text=i18n.t('messages.capeesh', locale=user['selected_language']), reply_markup=markup, parse_mode='HTML')
+
+def wiki_payoff(message):
+    user = retrieve_user(message.from_user.id)
+    return_markup = restart(message)
+    bot.send_message(chat_id=message.from_user.id, text=i18n.t('wiki.'+user['selected_pilot']+"."+message.data, locale=user['selected_language']),reply_markup=return_markup)
 
 def add_email(message):
     """
@@ -616,7 +675,9 @@ def menu_creation(buttons, language='en', type='commands', skip_restart=False):
 ##########################
 
 while True:
-    print("restart")
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S,%f")
+    print(dt_string + " Restart ")
     try:
         # bot.infinity_polling(timeout=10, long_polling_timeout = 5)
         # bot.polling(True)
@@ -626,5 +687,4 @@ while True:
         dt_string = now.strftime("%Y-%m-%d %H:%M:%S,%f")
         print("Exception occurred: ", dt_string)
         print(e)
-        
     

@@ -1,6 +1,7 @@
 it:
   palermo:
     registry_office: "Iscrizione all'anagrafe"
+    job_seeking: "Cercare lavoro"
   birmingham:
     caz: "Zona Aria Pulita"
     baes_esol: "Corso di inglese BAES ESOL"

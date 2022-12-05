@@ -2,137 +2,137 @@ en:
   birmingham:
     baes_esol: '<b>Step 1</b>
 
-      where - website: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
+      <b>where - website</b>: https://forms.office.com/Pages/ResponsePage.aspx?id=cvyK9n3GCUK8D4sm3L3QGbow5bwXQKxOg_mHMyPEdk5UMzVaMDZHRTlQS0xRV0hZRFdTRklLRFcwRSQlQCN0PWcu
 
-      how - procedure: form compilation
+      <b>how - procedure</b>: form compilation
 
       '
-    caz: '<b>Step 1</b>
+    caz: "<b>Step 1</b>
 
-      where - website: https://vehiclecheck.drive:clean:air:zone.service.gov.uk/vehicle_checkers/
+      <b>where - website</b>: https://vehiclecheck.drive-clean-air-zone.service.gov.uk/vehicle_checkers/enter_details
 
-      when - opening time: early 2020
+      <b>when - opening time</b>: early 2020
 
-      how - document: Vehicle registration number (V5 Document)
+      <b>how - document</b>: Vehicle registration number (V5 Document)
 
-      how - procedure: vehicle check
+      <b>how - procedure</b>: vehicle check\n
 
       <b>Step 2</b>
 
-      where - website: https://www.brumbreathes.co.uk/
+      <b>where - website</b>: https://www.brumbreathes.co.uk/
 
-      when - opening time: June 2021
+      <b>when - opening time</b>: June 2021
 
-      how - document: vehicle registration number
+      <b>how - document</b>: vehicle registration number
 
-      how - procedure: exemption application
+      <b>how - procedure</b>: exemption application
 
-      '
+      "
   larissa:
     birth_certificate: '<b>Step 1</b>
 
-      where - physical office: Register
+      <b>where - physical office</b>: Register
 
-      never - response time: after the issuance of the birth certificate by the registry
+      <b>when - response time</b>: after the issuance of the birth certificate by the registry
       office
 
-      how - document: Tax Number (AFM), Social Security Numbers (AMKA), Residence
+      <b>how - document</b>: Tax Number (AFM), Social Security Numbers (AMKA), Residence
       Permit, Marital Status Certificate, Hospital Birth Statement
 
-      how - procedure: Personal submission of documents
+      <b>how - procedure</b>: Personal submission of documents
 
       '
     nationality: '<b>Step 1</b>
 
-      where - physical office: Directorate of Urban Status (DAK)
+      <b>where - physical office</b>: Directorate of Urban Status (DAK)
 
-      never - response time: 1 year
+      <b>when - response time</b>: 1 year
 
-      how - document: Passport, Residence Permit, Declaration of Naturalization from
+      <b>how - document</b>: Passport, Residence Permit, Declaration of Naturalization from
       my Municipality of residence, Application for Naturalization, Social Security
       Number (A.M.K.A.), Tax returns from recent years
 
       '
   malaga:
-    asylum_request: '<b>Step 1: declaration of asylum - form </b>
+    asylum_request: "<b>Step 1: declaration of asylum - form </b>
 
-      where - physical office: authorized border post or asylum and refuge office
+      <b>where - physical office</b>: authorized border post or asylum and refuge office
       (oar) or authorized police stations or detention centers for foreigners or penitentiary
       center (if applicable)
 
-      when - opening hours: as soon as possible, preferably within one month of entering
+      <b>when - opening hours</b>: as soon as possible, preferably within one month of entering
       the country
 
-      how - document: identification document (if in possession), 2 passport-size
+      <b>how - document</b>: identification document (if in possession), 2 passport-size
       photographs, receipt of the request for a preventive appointment (if applicable)
 
-      how - procedure: asylum application form in person at the office
+      <b>how - procedure</b>: asylum application form in person at the office \n
 
-      <b> Step 2: declaration of asylum - interview </b>
+      <b>Step 2: declaration of asylum - interview </b>
 
-      where - physical office: authorized border post or asylum and refuge office
+      <b>where - physical office</b>: authorized border post or asylum and refuge office
       or authorized police stations or detention centers for foreigners (cie) or penitentiary
       center (if applicable)
 
-      when - opening hours: date and time indicated in the appointment indicated in
+      <b>when - opening hours</b>: date and time indicated in the appointment indicated in
       point 1
 
-      how - document: identity document (if in possession), receipt of the request
+      <b>how - document</b>: identity document (if in possession), receipt of the request
       for a preventive appointment (if applicable) and all types of documents, objects
       and evidence of the asylum case
 
-      how - procedure: general data + history of asylum applications (oral or written)
+      <b>how - procedure</b>: general data + history of asylum applications (oral or written) \n
 
-      <b> Step 3: Admission for processing </b>
+      <b>Step 3: Admission for processing </b>
 
-      when - response time: request at the border and cie: 4 days // request in the
+      <b>when - response time</b>: request at the border and cie: 4 days // request in the
       territory: 1 month
 
-      how - document: formal notification (online / paper) of refusal / non-admission
-      / admission of the asylum application
+      <b>how - document</b>: formal notification (online / paper) of refusal / non-admission
+      / admission of the asylum application \n
 
-      <b> Step 4: Instructions - if the question is accepted </b>
+      <b>Step 4: Instructions - if the question is accepted </b>
 
-      how - procedure: a second interview may take place in which new data and documents
-      are presented
+      <b>how - procedure</b>: a second interview may take place in which new data and documents
+      are presented \n
 
-      <b> Step 5: Resolution </b>
+      <b>Step 5: Resolution </b>
 
-      when - response time: 6 months (officially), it is normal to be notified of
+      <b>when - response time</b>: 6 months (officially), it is normal to be notified of
       the extension of this deadline
 
-      how - document: formal communication (online / paper) of refusal / non-admission
+      <b>how - document</b>: formal communication (online / paper) of refusal / non-admission
       / admission of international protection
 
-      '
-    work_permission: '<b>Step 1</b>
+      "
+    work_permission: "<b>Step 1</b>
 
-      where - website: https://sede.administracionespublicas.gob.es/icpplus/index.html
+      <b>where - website</b>: https://sede.administracionespublicas.gob.es/icpplus/index.html
 
-      how - document: number of passport
+      <b>how - document</b>: number of passport
 
-      how - procedure: registration for online appointment
+      <b>how - procedure</b>: registration for online appointment
 
-      <b>Step 2</b>
+      \n<b>Step 2</b>
 
-      how - document: application form EX:10, passport, criminal record certificate,
+      <b>how - document</b>: application form EX:10, passport, criminal record certificate,
       international protection document
 
-      how - procedure: personal interview '
+      <b>how - procedure</b>: personal interview "
   palermo:
-    registry_office: '<b>Step 1</b>
+    registry_office: "<b>Step 1</b>
 
-      where - website: https://servizionline.comune.palermo.it/portcitt/jsp/home.jsp?modo=info&info=servizi.jsp&ARECOD=20&SERCOD=2280
+      <b>where - website</b>: https://easyrights.comune.palermo.it/
 
-      how - document: fiscal Code
+      <b>how - document</b>: fiscal Code
 
-      how - procedure: make appointment
+      <b>how - procedure</b>: make appointment
 
-      <b>Step 2</b>
+      \n<b>Step 2</b>
 
-      how - document: tax code, passport, identification document, residence permit,
+      <b>how - document</b>: tax code, passport, identification document, residence permit,
       request for renewal of stay
 
-      how - procedure: compilation of forms
+      <b>how - procedure</b>: compilation of forms
 
-      '
+      "

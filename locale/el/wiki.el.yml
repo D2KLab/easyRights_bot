@@ -1,0 +1,12 @@
+el:
+  birmingham:
+    baes_esol: "Αυτός είναι ένας σύνδεσμος προς τον χώρο wiki για την υπηρεσία που ζητήσατε: \nhttps://wiki-easyrights.fly.dev/en/home/wikibirmingham/Englishcourse"
+    caz: "Αυτός είναι ένας σύνδεσμος προς τον χώρο wiki για την υπηρεσία που ζητήσατε: \nhttps://wiki-easyrights.fly.dev/en/home/wikibirmingham/CAZ"
+  larissa:
+    birth_certificate: "Ερχομαι συντομα"
+    nationality: "Ερχομαι συντομα"
+  malaga:
+    asylum_request: "Αυτός είναι ένας σύνδεσμος προς τον χώρο wiki για την υπηρεσία που ζητήσατε: https://malaga-wiki-easy-rights.herokuapp.com/en/home"
+    work_permission: "Αυτός είναι ένας σύνδεσμος προς τον χώρο wiki για την υπηρεσία που ζητήσατε: https://malaga-wiki-easy-rights.herokuapp.com/en/home"
+  palermo:
+    job_seeking: "Αυτός είναι ένας σύνδεσμος προς τον χώρο wiki για την υπηρεσία που ζητήσατε: \nhttps://wiki-easyrights.comune.palermo.it/en/home"
